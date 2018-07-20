@@ -3,7 +3,7 @@ import { Expression } from './'
 
 class Literal extends Expression {
   constructor(
-    private readonly value: StoreVariable,
+    public readonly value: StoreVariable,
   ) {
     super()
   }

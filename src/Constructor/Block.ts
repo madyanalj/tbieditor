@@ -3,7 +3,7 @@ import { Store, StoreVariable } from './Store'
 
 class Block extends Constructor {
   constructor(
-    private readonly statements: Constructor[],
+    public readonly statements: Constructor[],
   ) {
     super()
   }

@@ -3,13 +3,13 @@ import { Expression } from './'
 
 class Identifier extends Expression {
   constructor(
-    private readonly identifier: string,
+    public readonly name: string,
   ) {
     super()
   }
 
   public evaluate(store: Store): StoreVariable {
-    return store[this.identifier]
+    return store[this.name]
   }
 }
 

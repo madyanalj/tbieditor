@@ -1,5 +1,5 @@
-import { Block } from './'
-import { Assignment, Literal } from './Expression'
+import { Assignment, Block } from './'
+import { Literal } from './Expression'
 import { Store } from './Store'
 
 describe('Block', () => {

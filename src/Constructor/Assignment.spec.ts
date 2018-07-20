@@ -1,5 +1,6 @@
-import { Store } from '../Store'
-import { Assignment, Literal } from './'
+import { Assignment } from './'
+import { Literal } from './Expression'
+import { Store } from './Store'
 
 describe('Assignment', () => {
   describe('#evaluate', () => {

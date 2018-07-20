@@ -1,0 +1,15 @@
+{
+  "extends": ["tslint:recommended"],
+  "rules": {
+    "curly": [true, "ignore-same-line"],
+    "indent": [true, "spaces", 2],
+    "interface-name": [true, "never-prefix"],
+    "object-literal-sort-keys": false,
+    "ordered-imports": [true, {
+      "import-sources-order": "lowercase-last",
+      "named-imports-order": "lowercase-last"
+    }],
+    "quotemark": [true, "single", "avoid-escape", "avoid-template"],
+    "semicolon": [true, "never"]
+  }
+}

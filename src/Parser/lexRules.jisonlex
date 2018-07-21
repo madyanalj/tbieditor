@@ -15,6 +15,9 @@
 '='
   return 'ASSIGN'
 
+('true'|'false')\b
+  return yytext.toUpperCase()
+
 \d*('.'\d+)\b
   return 'NUMBER'
 

@@ -38,4 +38,8 @@ literal
     -> new Literal(processNumber($NUMBER))
   | STRING
     -> new Literal(processString($STRING))
+  | TRUE
+    -> new Literal(true)
+  | FALSE
+    -> new Literal(false)
 ;

@@ -55,6 +55,20 @@ describe('Parser', () => {
     expect((statement as Literal).value).toBe("Let's here ' and two here ''")
   })
 
+  it('should support true boolean literal', () => {
+    const parser = new Parser('true')
+    const statement = parser.output.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value).toBe(true)
+  })
+
+  it('should support false boolean literal', () => {
+    const parser = new Parser('false')
+    const statement = parser.output.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value).toBe(false)
+  })
+
   it('should support identifier', () => {
     const parser = new Parser('foo')
     const statement = parser.output.statements[0]

@@ -1,9 +1,6 @@
 abstract class BaseNode {
+  public readonly properties: { [key: string]: any } = {}
   protected readonly abstract TAG: string
-
-  constructor(
-    public readonly attributes: { [key: string]: any },
-  ) {}
 }
 
 export { BaseNode }

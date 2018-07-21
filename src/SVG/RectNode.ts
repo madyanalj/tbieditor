@@ -1,16 +1,13 @@
 import { BaseNode } from './'
 
 class RectNode extends BaseNode {
-  protected readonly TAG = 'rect'
-
-  constructor(
-    width: number,
-    height: number,
-    x: number = 0,
-    y: number = 0,
-  ) {
-    super({ width, height, x, y })
+  public readonly properties = {
+    width: 100,
+    height: 100,
+    x: 0,
+    y: 0,
   }
+  protected readonly TAG = 'rect'
 }
 
 export { RectNode }

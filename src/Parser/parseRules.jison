@@ -35,5 +35,5 @@ expression
 
 literal
   : NUMBER
-    -> new Literal(Number($NUMBER))
+    -> new Literal(processNumber($NUMBER))
 ;

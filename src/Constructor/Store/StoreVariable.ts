@@ -1,3 +1,3 @@
-type StoreVariable = number | undefined
+type StoreVariable = number | string | boolean | undefined
 
 export { StoreVariable }

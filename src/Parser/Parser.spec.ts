@@ -34,6 +34,27 @@ describe('Parser', () => {
     expect((statement as Literal).value).toBe(0.50)
   })
 
+  it('should support string literal', () => {
+    const parser = new Parser("'Hello World!'")
+    const statement = parser.output.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value).toBe('Hello World!')
+  })
+
+  it('should support string literal with escaping backslashes', () => {
+    const parser = new Parser("'King\\'s'")
+    const statement = parser.output.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value).toBe("King's")
+  })
+
+  it('should support string literal with escaping multiple backslashes', () => {
+    const parser = new Parser("'Let\\'s here \\' and two here \\'\\''")
+    const statement = parser.output.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value).toBe("Let's here ' and two here ''")
+  })
+
   it('should support identifier', () => {
     const parser = new Parser('foo')
     const statement = parser.output.statements[0]

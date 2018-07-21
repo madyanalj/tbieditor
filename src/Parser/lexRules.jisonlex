@@ -21,6 +21,9 @@
 \d+\b
   return 'NUMBER'
 
+"'".*"'"
+  return 'STRING'
+
 [$#\w][-\w]*
   return 'IDENTIFIER'
 

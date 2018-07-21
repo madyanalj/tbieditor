@@ -1,10 +1,6 @@
 const { dirname, join } = require('path')
 
-function requireFile(file) {
-  const currentDir = dirname(require.main.filename)
-  const path = join(currentDir, `../${file}`)
-  return require(path)
-}
+const currentDir = dirname(require.main.filename)
+const helpers = require(join(currentDir, 'helpers'))
 
-const { Assignment, Block } = requireFile('Constructor')
-const { Identifier, Literal } = requireFile('Constructor/Expression')
+Object.assign(global, helpers)

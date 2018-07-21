@@ -1,4 +1,4 @@
-import { processBoolean, processNumber, processString } from './helpers'
+import { processNumber, processString } from './helpers'
 
 describe('helpers', () => {
   describe('#processNumber', () => {
@@ -28,16 +28,6 @@ describe('helpers', () => {
       const input = "'Let\\'s add it here \\' and two here \\'\\''"
       const expected = "Let's add it here ' and two here ''"
       expect(processString(input)).toBe(expected)
-    })
-  })
-
-  describe('#processBoolean', () => {
-    it('should support true', () => {
-      expect(processBoolean('true')).toBe(true)
-    })
-
-    it('should support false', () => {
-      expect(processBoolean('false')).toBe(false)
     })
   })
 })

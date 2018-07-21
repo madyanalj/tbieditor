@@ -25,7 +25,7 @@ describe('helpers', () => {
     })
 
     it('should support string with escaping multiple backslashes', () => {
-      const input = "'Let's add it here \\' and two here \\'\\''"
+      const input = "'Let\\'s add it here \\' and two here \\'\\''"
       const expected = "Let's add it here ' and two here ''"
       expect(processString(input)).toBe(expected)
     })

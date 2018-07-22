@@ -1,4 +1,3 @@
-/* istanbul ignore next */
+export * from './State'
+export * from './StateVariable'
 export * from './Store'
-/* istanbul ignore next */
-export * from './StoreVariable'

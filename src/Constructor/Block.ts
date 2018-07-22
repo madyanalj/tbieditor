@@ -1,5 +1,5 @@
 import { Constructor } from './'
-import { Store, StoreVariable } from './Store'
+import { StateVariable, Store } from './Store'
 
 class Block extends Constructor {
   constructor(
@@ -8,7 +8,7 @@ class Block extends Constructor {
     super()
   }
 
-  public evaluate(store: Store): StoreVariable {
+  public evaluate(store: Store): StateVariable {
     this.statements.forEach((statement) => statement.evaluate(store))
     return undefined
   }

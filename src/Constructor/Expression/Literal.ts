@@ -1,14 +1,14 @@
-import { StoreVariable } from '../Store'
+import { StateVariable } from '../Store'
 import { Expression } from './'
 
 class Literal extends Expression {
   constructor(
-    public readonly value: StoreVariable,
+    public readonly value: StateVariable,
   ) {
     super()
   }
 
-  public evaluate(): StoreVariable {
+  public evaluate(): StateVariable {
     return this.value
   }
 }

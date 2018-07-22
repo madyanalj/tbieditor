@@ -6,7 +6,8 @@ describe('Identifier', () => {
     let store: Store
 
     beforeEach(() => {
-      store = { foo: 123 }
+      store = new Store()
+      store.setVariable('foo', 123)
     })
 
     it('should return value in store', () => {

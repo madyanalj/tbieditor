@@ -1,6 +1,6 @@
 import { Constructor } from './'
 import { Expression } from './Expression'
-import { Store, StoreVariable } from './Store'
+import { StateVariable, Store } from './Store'
 
 class Assignment extends Constructor {
   constructor(
@@ -10,8 +10,8 @@ class Assignment extends Constructor {
     super()
   }
 
-  public evaluate(store: Store): StoreVariable {
-    store[this.identifier] = this.expression.evaluate(store)
+  public evaluate(store: Store): StateVariable {
+    store.setVariable(this.identifier, this.expression.evaluate(store))
     return undefined
   }
 }

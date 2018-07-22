@@ -1,4 +1,4 @@
-import { Store, StoreVariable } from '../Store'
+import { StateVariable, Store } from '../Store'
 import { Expression } from './'
 
 class Identifier extends Expression {
@@ -8,8 +8,8 @@ class Identifier extends Expression {
     super()
   }
 
-  public evaluate(store: Store): StoreVariable {
-    return store[this.name]
+  public evaluate(store: Store): StateVariable {
+    return store.getVariable(this.name)
   }
 }
 

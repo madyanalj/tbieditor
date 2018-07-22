@@ -7,7 +7,7 @@ describe('Block', () => {
     let store: Store
 
     beforeEach(() => {
-      store = {}
+      store = new Store()
     })
 
     it('should return undefined', () => {
@@ -16,18 +16,20 @@ describe('Block', () => {
     })
 
     it('should support empty blocks', () => {
+      const storeCopy = Object.assign(new Store(), store)
       const block = new Block([])
       block.evaluate(store)
-      expect(store).toEqual({})
+      expect(store).toEqual(storeCopy)
     })
 
     it('should evaluate statements', () => {
       const block = new Block([
-        new Assignment('foo', new Literal(111)),
-        new Assignment('bar', new Literal(222)),
+        new Assignment('$foo', new Literal(111)),
+        new Assignment('$bar', new Literal(222)),
       ])
       block.evaluate(store)
-      expect(store).toEqual({ foo: 111, bar: 222 })
+      expect(store.getVariable('$foo')).toBe(111)
+      expect(store.getVariable('$bar')).toBe(222)
     })
   })
 })

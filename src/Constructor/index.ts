@@ -1,5 +1,6 @@
 export * from './Constructor'
 export * from './Assignment'
 export * from './Block'
+export * from './ExportStatement'
 export * from './NodeSelection'
 export * from './NodeAddition'

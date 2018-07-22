@@ -11,7 +11,12 @@ class Assignment extends Constructor {
   }
 
   public evaluate(store: Store): StateVariable {
-    store.setVariable(this.identifier, this.expression.evaluate(store))
+    const evaluationResult = this.expression.evaluate(store)
+    if (this.identifier[0] === '$') {
+      store.setVariable(this.identifier, evaluationResult)
+    } else {
+      store.setSelectedNodeProperty(this.identifier, evaluationResult)
+    }
     return undefined
   }
 }

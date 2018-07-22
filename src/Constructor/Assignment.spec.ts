@@ -23,6 +23,12 @@ describe('Assignment', () => {
       expect(store.getVariable('$foo')).toBe(222)
     })
 
+    it('should support setting node property', () => {
+      const assignment = new Assignment('width', new Literal(222))
+      assignment.evaluate(store)
+      expect(store.getSelectedNodeProperty('width')).toBe(222)
+    })
+
     it('should return undefined', () => {
       const assignment = new Assignment('$foo', new Literal(111))
       expect(assignment.evaluate(store)).toBeUndefined()

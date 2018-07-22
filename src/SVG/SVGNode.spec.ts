@@ -1,19 +1,77 @@
-import { SVGNode } from './'
+import { RectNode, SVGNode } from './'
 
 describe('SVGNode', () => {
+  let node: SVGNode
+  const attributes = [
+    ['viewBox', '0 0 200 300'],
+    ['xmlns', 'http://www.w3.org/2000/svg'],
+  ]
+
+  beforeEach(() => {
+    node = new SVGNode()
+    node.properties.width = 200
+    node.properties.height = 300
+  })
+
   describe('#attributes', () => {
-    const attributes = [['viewBox', '0 0 200 500'], ['xmlns', 'http://www.w3.org/2000/svg']]
+    it('should return array with correct length', () => {
+      expect(node.attributes).toHaveLength(2)
+    })
+
+    it.each(attributes)('should contain %s attribute', (name, value) => {
+      expect(node.attributes).toContainEqual([name, value])
+    })
+  })
+
+  describe('#generate', () => {
+    let output: string
+
+    function svg(children = ''): string {
+      return `<svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">${children}</svg>`
+    }
+
+    function rect(): string {
+      return '<rect width="100" height="100" />'
+    }
+
+    beforeEach(() => {
+      output = node.generate()
+    })
+
+    it('should start with correct opening tag', () => {
+      expect(output.indexOf('<svg')).toBe(0)
+    })
 
     it.each(attributes)('should contain %s attribute', (name) => {
-      const node = new SVGNode()
-      expect(node.attributes).toHaveProperty(name)
+      expect(output).toContain(` ${name}=`)
     })
 
     it.each(attributes)('should contain correct %s value', (name, value) => {
-      const node = new SVGNode()
-      node.properties.width = 200
-      node.properties.height = 500
-      expect(node.attributes).toHaveProperty(name, value)
+      expect(output).toContain(` ${name}="${value}"`)
+    })
+
+    it('should end with correct closing tag', () => {
+      expect(output.lastIndexOf('</svg>')).toBe(output.length - 6)
+    })
+
+    it('should follow correct svg format', () => {
+      expect(output).toBe(svg())
+    })
+
+    it('should support passing child node', () => {
+      const child = new RectNode()
+      node.children.push(child)
+      output = node.generate()
+      expect(output).toBe(svg(rect()))
+    })
+
+    it('should support passing multiple children nodes', () => {
+      const child = new RectNode()
+      for (let i = 0; i < 3; i++) {
+        node.children.push(child)
+      }
+      output = node.generate()
+      expect(output).toBe(svg(rect() + rect() + rect()))
     })
   })
 })

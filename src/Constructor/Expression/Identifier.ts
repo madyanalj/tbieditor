@@ -1,4 +1,4 @@
-import { StateVariable, Store } from '../Store'
+import { StateVariable, Store } from '../../Store'
 import { Expression } from './'
 
 class Identifier extends Expression {

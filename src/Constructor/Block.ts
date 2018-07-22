@@ -1,5 +1,5 @@
+import { StateVariable, Store } from '../Store'
 import { Constructor } from './'
-import { StateVariable, Store } from './Store'
 
 class Block extends Constructor {
   constructor(

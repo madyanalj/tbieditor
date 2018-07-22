@@ -1,4 +1,4 @@
-import { BaseNode, SVGNode } from '../../SVG'
+import { BaseNode, SVGNode } from '../SVG'
 import { State } from './'
 
 const ROOT_IDENTIFIER = '#__ROOT'

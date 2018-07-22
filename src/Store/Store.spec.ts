@@ -1,4 +1,4 @@
-import { RectNode, SVGNode } from '../../SVG'
+import { RectNode, SVGNode } from '../SVG'
 import { Store } from './'
 
 describe('Store', () => {

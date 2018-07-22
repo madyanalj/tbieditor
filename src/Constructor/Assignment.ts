@@ -1,6 +1,6 @@
+import { StateVariable, Store } from '../Store'
 import { Constructor } from './'
 import { Expression } from './Expression'
-import { StateVariable, Store } from './Store'
 
 class Assignment extends Constructor {
   constructor(

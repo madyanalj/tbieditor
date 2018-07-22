@@ -1,6 +1,6 @@
+import { Store } from '../Store'
 import { Assignment, Block } from './'
 import { Literal } from './Expression'
-import { Store } from './Store'
 
 describe('Block', () => {
   describe('#evaluate', () => {

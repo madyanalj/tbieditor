@@ -1,4 +1,4 @@
-import { Assignment, Block, NodeSelection } from '../Constructor'
+import { Assignment, Block, NodeAddition, NodeSelection } from '../Constructor'
 import { Identifier, Literal } from '../Constructor/Expression'
 import { Parser } from './'
 

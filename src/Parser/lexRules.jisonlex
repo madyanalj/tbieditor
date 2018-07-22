@@ -15,6 +15,9 @@
 '='
   return 'ASSIGN'
 
+'>'
+  return 'GT'
+
 ('true'|'false')\b
   return yytext.toUpperCase()
 

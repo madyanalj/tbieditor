@@ -1,4 +1,4 @@
-import { Assignment, Block } from '../Constructor'
+import { Assignment, Block, NodeSelection } from '../Constructor'
 import { Identifier, Literal } from '../Constructor/Expression'
 import { Parser } from './'
 
@@ -118,6 +118,13 @@ describe('Parser', () => {
     const assignment = statement as Assignment
     expect(assignment.identifier).toBe('hello')
     expect((assignment.expression as Literal).value).toBe(1)
+  })
+
+  it('should support node selection', () => {
+    const parser = new Parser('> #foo')
+    const statement = parser.output.statements[0]
+    expect(statement).toBeInstanceOf(NodeSelection)
+    expect((statement as NodeSelection).identifier).toBe('#foo')
   })
 
   it('should support multiple statements', () => {

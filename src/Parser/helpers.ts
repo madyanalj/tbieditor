@@ -1,4 +1,4 @@
-export { Assignment, Block } from '../Constructor'
+export { Assignment, Block, NodeSelection } from '../Constructor'
 export { Identifier, Literal } from '../Constructor/Expression'
 
 function processNumber(input: string): number {

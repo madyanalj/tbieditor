@@ -23,6 +23,8 @@ statements
 
 statement
   : expression
+  | GT IDENTIFIER
+    -> new NodeSelection($IDENTIFIER)
   | IDENTIFIER ASSIGN expression
     -> new Assignment($IDENTIFIER, $expression)
 ;

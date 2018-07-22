@@ -120,6 +120,13 @@ describe('Parser', () => {
     expect((assignment.expression as Literal).value).toBe(1)
   })
 
+  it('should support node addition', () => {
+    const parser = new Parser('+ #foo')
+    const statement = parser.output.statements[0]
+    expect(statement).toBeInstanceOf(NodeAddition)
+    expect((statement as NodeAddition).identifier).toBe('#foo')
+  })
+
   it('should support node selection', () => {
     const parser = new Parser('> #foo')
     const statement = parser.output.statements[0]

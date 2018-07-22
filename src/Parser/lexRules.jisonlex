@@ -12,8 +12,11 @@
 '/*'[\s\S]*?'*/'
   // skip multi-line comments
 
+'+'
+  return 'PLUS'
+
 '='
-  return 'ASSIGN'
+  return 'EQ'
 
 '>'
   return 'GT'

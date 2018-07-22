@@ -23,9 +23,11 @@ statements
 
 statement
   : expression
+  | PLUS IDENTIFIER
+    -> new NodeAddition($IDENTIFIER)
   | GT IDENTIFIER
     -> new NodeSelection($IDENTIFIER)
-  | IDENTIFIER ASSIGN expression
+  | IDENTIFIER EQ expression
     -> new Assignment($IDENTIFIER, $expression)
 ;
 

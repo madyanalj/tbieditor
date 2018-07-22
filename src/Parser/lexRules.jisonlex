@@ -12,6 +12,9 @@
 '/*'[\s\S]*?'*/'
   // skip multi-line comments
 
+'->'
+  return 'RARROW'
+
 '+'
   return 'PLUS'
 

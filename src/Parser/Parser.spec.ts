@@ -1,4 +1,6 @@
-import { Assignment, Block, NodeAddition, NodeSelection } from '../Constructor'
+import {
+  Assignment, Block, ExportStatement, NodeAddition, NodeSelection,
+} from '../Constructor'
 import { Identifier, Literal } from '../Constructor/Expression'
 import { Parser } from './'
 
@@ -132,6 +134,14 @@ describe('Parser', () => {
     const statement = parser.output.statements[0]
     expect(statement).toBeInstanceOf(NodeSelection)
     expect((statement as NodeSelection).identifier).toBe('#foo')
+  })
+
+  it('should support export statement', () => {
+    const parser = new Parser("-> 'hello.svg'")
+    const statement = parser.output.statements[0]
+    expect(statement).toBeInstanceOf(ExportStatement)
+    const exportStatement = statement as ExportStatement
+    expect(exportStatement.filename).toEqual(new Literal('hello.svg'))
   })
 
   it('should support multiple statements', () => {

@@ -27,6 +27,8 @@ statement
     -> new NodeAddition($IDENTIFIER)
   | GT IDENTIFIER
     -> new NodeSelection($IDENTIFIER)
+  | RARROW expression
+    -> new ExportStatement($expression)
   | IDENTIFIER EQ expression
     -> new Assignment($IDENTIFIER, $expression)
 ;

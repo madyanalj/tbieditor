@@ -9,7 +9,14 @@ class Identifier extends Expression {
   }
 
   public evaluate(store: Store): StateVariable {
+    if (this.isNodePropertyIdentifier()) {
+      return store.getSelectedNodeProperty(this.name)
+    }
     return store.getVariable(this.name)
+  }
+
+  private isNodePropertyIdentifier() {
+    return !['$', '#', '_'].includes(this.name[0])
   }
 }
 

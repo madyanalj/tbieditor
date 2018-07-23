@@ -1,7 +1,7 @@
 module.exports = {
   clearMocks: true,
   collectCoverage: true,
-  collectCoverageFrom: ['**/*.ts', '!**/*.d.ts'],
+  collectCoverageFrom: ['**/*.ts', '!**/*.d.ts', '!bin/*'],
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {

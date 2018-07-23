@@ -22,5 +22,8 @@
     "pretest": "npm run lint",
     "test": "jest",
     "precommit": "npm test"
+  },
+  "bin": {
+    "tbieditor": "./bin/tbieditor.ts"
   }
 }

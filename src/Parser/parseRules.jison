@@ -27,10 +27,10 @@ statement
     -> new NodeAddition($IDENTIFIER)
   | GT IDENTIFIER
     -> new NodeSelection($IDENTIFIER)
-  | RARROW expression
-    -> new ExportStatement($expression)
   | IDENTIFIER ASSIGN expression
     -> new Assignment($IDENTIFIER, $expression)
+  | unary_operator expression
+    -> new $1($expression)
   | expression binary_operator expression
     -> new $2($1, $3)
 ;
@@ -50,6 +50,13 @@ literal
     -> new Literal(true)
   | FALSE
     -> new Literal(false)
+;
+
+unary_operator
+  : RARROW
+    -> ExportStatement
+  | NOT
+    -> NotOperation
 ;
 
 binary_operator
@@ -73,4 +80,8 @@ binary_operator
     -> LTOperation
   | LTEQ
     -> LTEQOperation
+  | AND
+    -> AndOperation
+  | OR
+    -> OrOperation
 ;

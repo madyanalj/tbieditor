@@ -10,9 +10,10 @@ export { processNumber, processString }
 export {
   Assignment, Block, ExportStatement, NodeAddition, NodeSelection,
 } from '../Constructor'
-export { Identifier, Literal } from '../Constructor/Expression'
+export { Identifier, Literal, NotOperation } from '../Constructor/Expression'
 export {
   AdditionOperation,
+  AndOperation,
   DivisionOperation,
   EQOperation,
   GTEQOperation,
@@ -21,5 +22,6 @@ export {
   LTEQOperation,
   LTOperation,
   MultiplicationOperation,
+  OrOperation,
   SubtractionOperation,
 } from '../Constructor/Expression/BinaryOperation'

@@ -1,9 +1,10 @@
 import {
   Assignment, Block, ExportStatement, NodeAddition, NodeSelection,
 } from '../Constructor'
-import { Identifier, Literal } from '../Constructor/Expression'
+import { Identifier, Literal, NotOperation } from '../Constructor/Expression'
 import {
   AdditionOperation,
+  AndOperation,
   DivisionOperation,
   EQOperation,
   GTEQOperation,
@@ -12,6 +13,7 @@ import {
   LTEQOperation,
   LTOperation,
   MultiplicationOperation,
+  OrOperation,
   SubtractionOperation,
 } from '../Constructor/Expression/BinaryOperation'
 import { parse } from './'
@@ -246,6 +248,32 @@ describe('Parser', () => {
     const operation = statement as LTEQOperation
     expect(operation.left).toEqual(new Literal(10))
     expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support AND logical operation', () => {
+    block = parse('true && false')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(AndOperation)
+    const operation = statement as AndOperation
+    expect(operation.left).toEqual(new Literal(true))
+    expect(operation.right).toEqual(new Literal(false))
+  })
+
+  it('should support OR logical operation', () => {
+    block = parse('true || false')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(OrOperation)
+    const operation = statement as OrOperation
+    expect(operation.left).toEqual(new Literal(true))
+    expect(operation.right).toEqual(new Literal(false))
+  })
+
+  it('should support NOT logical operation', () => {
+    block = parse('!false')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(NotOperation)
+    const operation = statement as NotOperation
+    expect(operation.argument).toEqual(new Literal(false))
   })
 
   it('should support multiple statements', () => {

@@ -48,6 +48,15 @@
 '<'
   return 'LT'
 
+'&&'
+  return 'AND'
+
+'||'
+  return 'OR'
+
+'!'
+  return 'NOT'
+
 ('true'|'false')\b
   return yytext.toUpperCase()
 

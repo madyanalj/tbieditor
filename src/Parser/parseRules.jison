@@ -31,6 +31,8 @@ statement
     -> new ExportStatement($expression)
   | IDENTIFIER EQ expression
     -> new Assignment($IDENTIFIER, $expression)
+  | expression binary_operator expression
+    -> new $2($1, $3)
 ;
 
 expression
@@ -48,4 +50,9 @@ literal
     -> new Literal(true)
   | FALSE
     -> new Literal(false)
+;
+
+binary_operator
+  : PLUS
+    -> AdditionOperation
 ;

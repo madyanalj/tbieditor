@@ -2,6 +2,7 @@ import {
   Assignment, Block, ExportStatement, NodeAddition, NodeSelection,
 } from '../Constructor'
 import { Identifier, Literal } from '../Constructor/Expression'
+import { AdditionOperation } from '../Constructor/Expression/BinaryOperation'
 import { parse } from './'
 
 describe('Parser', () => {
@@ -144,6 +145,15 @@ describe('Parser', () => {
     expect(statement).toBeInstanceOf(ExportStatement)
     const exportStatement = statement as ExportStatement
     expect(exportStatement.filename).toEqual(new Literal('hello.svg'))
+  })
+
+  it('should support addition operation', () => {
+    block = parse('10 + 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(AdditionOperation)
+    const operation = statement as AdditionOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(new Literal(5))
   })
 
   it('should support multiple statements', () => {

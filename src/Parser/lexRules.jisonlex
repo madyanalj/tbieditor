@@ -18,6 +18,9 @@
 '+'
   return 'PLUS'
 
+'-'
+  return 'MINUS'
+
 '='
   return 'EQ'
 

@@ -11,4 +11,6 @@ export {
   Assignment, Block, ExportStatement, NodeAddition, NodeSelection,
 } from '../Constructor'
 export { Identifier, Literal } from '../Constructor/Expression'
-export { AdditionOperation } from '../Constructor/Expression/BinaryOperation'
+export {
+  AdditionOperation, SubtractionOperation,
+} from '../Constructor/Expression/BinaryOperation'

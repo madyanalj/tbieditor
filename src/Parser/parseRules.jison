@@ -55,4 +55,6 @@ literal
 binary_operator
   : PLUS
     -> AdditionOperation
+  | MINUS
+    -> SubtractionOperation
 ;

@@ -12,5 +12,5 @@ export {
 } from '../Constructor'
 export { Identifier, Literal } from '../Constructor/Expression'
 export {
-  AdditionOperation, SubtractionOperation,
+  AdditionOperation, MultiplicationOperation, SubtractionOperation,
 } from '../Constructor/Expression/BinaryOperation'

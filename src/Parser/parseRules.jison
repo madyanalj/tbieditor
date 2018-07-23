@@ -57,4 +57,6 @@ binary_operator
     -> AdditionOperation
   | MINUS
     -> SubtractionOperation
+  | ASTERISK
+    -> MultiplicationOperation
 ;

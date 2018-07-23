@@ -21,6 +21,9 @@
 '-'
   return 'MINUS'
 
+'*'
+  return 'ASTERISK'
+
 '='
   return 'EQ'
 

@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { Parser as JisonParser } from 'jison'
+import { Parser } from 'jison'
 import { join } from 'path'
 import { Block } from '../Constructor'
 
@@ -12,14 +12,9 @@ const lexRules = readFile('lexRules.jisonlex')
 const parseRules = readFile('parseRules.jison')
 const grammar = `%{ ${grammarHeader} %} %lex ${lexRules} /lex ${parseRules}`
 
-const jisonParser = new JisonParser(grammar)
-
-class Parser {
-  public readonly output: Block
-
-  constructor(input: string) {
-    this.output = jisonParser.parse(input.trim())
-  }
+function parse(input: string): Block {
+  const parser = new Parser(grammar)
+  return parser.parse(input.trim())
 }
 
-export { Parser }
+export { parse }

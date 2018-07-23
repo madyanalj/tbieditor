@@ -1,4 +1,5 @@
 export * from './BinaryOperation'
 export * from './AdditionOperation'
+export * from './DivisionOperation'
 export * from './MultiplicationOperation'
 export * from './SubtractionOperation'

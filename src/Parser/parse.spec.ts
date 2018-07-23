@@ -5,6 +5,12 @@ import { Identifier, Literal } from '../Constructor/Expression'
 import {
   AdditionOperation,
   DivisionOperation,
+  EQOperation,
+  GTEQOperation,
+  GTOperation,
+  IEQOperation,
+  LTEQOperation,
+  LTOperation,
   MultiplicationOperation,
   SubtractionOperation,
 } from '../Constructor/Expression/BinaryOperation'
@@ -184,6 +190,60 @@ describe('Parser', () => {
     const statement = block.statements[0]
     expect(statement).toBeInstanceOf(DivisionOperation)
     const operation = statement as DivisionOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support equality operation', () => {
+    block = parse('10 == 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(EQOperation)
+    const operation = statement as EQOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support inequality operation', () => {
+    block = parse('10 != 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(IEQOperation)
+    const operation = statement as IEQOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support greater than operation', () => {
+    block = parse('10 > 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(GTOperation)
+    const operation = statement as GTOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support greater than or equal operation', () => {
+    block = parse('10 >= 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(GTEQOperation)
+    const operation = statement as GTEQOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support less than operation', () => {
+    block = parse('10 < 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(LTOperation)
+    const operation = statement as LTOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support less than or equal operation', () => {
+    block = parse('10 <= 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(LTEQOperation)
+    const operation = statement as LTEQOperation
     expect(operation.left).toEqual(new Literal(10))
     expect(operation.right).toEqual(new Literal(5))
   })

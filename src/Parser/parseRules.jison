@@ -29,7 +29,7 @@ statement
     -> new NodeSelection($IDENTIFIER)
   | RARROW expression
     -> new ExportStatement($expression)
-  | IDENTIFIER EQ expression
+  | IDENTIFIER ASSIGN expression
     -> new Assignment($IDENTIFIER, $expression)
   | expression binary_operator expression
     -> new $2($1, $3)
@@ -61,4 +61,16 @@ binary_operator
     -> MultiplicationOperation
   | SLASH
     -> DivisionOperation
+  | EQ
+    -> EQOperation
+  | IEQ
+    -> IEQOperation
+  | GT
+    -> GTOperation
+  | GTEQ
+    -> GTEQOperation
+  | LT
+    -> LTOperation
+  | LTEQ
+    -> LTEQOperation
 ;

@@ -27,11 +27,26 @@
 '/'
   return 'SLASH'
 
-'='
+'=='
   return 'EQ'
+
+'!='
+  return 'IEQ'
+
+'='
+  return 'ASSIGN'
+
+'>='
+  return 'GTEQ'
 
 '>'
   return 'GT'
+
+'<='
+  return 'LTEQ'
+
+'<'
+  return 'LT'
 
 ('true'|'false')\b
   return yytext.toUpperCase()

@@ -14,6 +14,12 @@ export { Identifier, Literal } from '../Constructor/Expression'
 export {
   AdditionOperation,
   DivisionOperation,
+  EQOperation,
+  GTEQOperation,
+  GTOperation,
+  IEQOperation,
+  LTEQOperation,
+  LTOperation,
   MultiplicationOperation,
   SubtractionOperation,
 } from '../Constructor/Expression/BinaryOperation'

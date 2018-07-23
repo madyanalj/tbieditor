@@ -59,4 +59,6 @@ binary_operator
     -> SubtractionOperation
   | ASTERISK
     -> MultiplicationOperation
+  | SLASH
+    -> DivisionOperation
 ;

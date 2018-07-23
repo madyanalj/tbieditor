@@ -24,6 +24,9 @@
 '*'
   return 'ASTERISK'
 
+'/'
+  return 'SLASH'
+
 '='
   return 'EQ'
 

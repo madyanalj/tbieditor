@@ -3,7 +3,10 @@ import {
 } from '../Constructor'
 import { Identifier, Literal } from '../Constructor/Expression'
 import {
-  AdditionOperation, MultiplicationOperation, SubtractionOperation,
+  AdditionOperation,
+  DivisionOperation,
+  MultiplicationOperation,
+  SubtractionOperation,
 } from '../Constructor/Expression/BinaryOperation'
 import { parse } from './'
 
@@ -172,6 +175,15 @@ describe('Parser', () => {
     const statement = block.statements[0]
     expect(statement).toBeInstanceOf(MultiplicationOperation)
     const operation = statement as MultiplicationOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support division operation', () => {
+    block = parse('10 / 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(DivisionOperation)
+    const operation = statement as DivisionOperation
     expect(operation.left).toEqual(new Literal(10))
     expect(operation.right).toEqual(new Literal(5))
   })

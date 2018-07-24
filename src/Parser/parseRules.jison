@@ -16,14 +16,18 @@ program
 ;
 
 block
-  : statements
-    -> new Block($statements)
+  : OPT_statements
+    -> new Block($OPT_statements)
+;
+
+OPT_statements
+  : // optional
+    -> []
+  | statements
 ;
 
 statements
-  : // optional
-    -> []
-  | statement
+  : statement
     -> [$statement]
   | statements NEWLINE statement
     { $$.push($statement) }
@@ -64,27 +68,31 @@ literal
     -> new Literal(true)
   | FALSE
     -> new Literal(false)
-  | '[' array_elements comma? ']'
-    -> new Literal($2)
+  | '[' OPT_array_elements OPT_comma ']'
+    -> new Literal($OPT_array_elements)
+;
+
+OPT_array_elements
+  : // optional
+    -> []
+  | array_elements
 ;
 
 array_elements
-  : // optional
-    -> []
-  | expression
+  : expression
     -> [$expression]
-  | array_elements ',' expression
+  | OPT_array_elements ',' expression
     { $$.push($expression) }
 ;
 
-comma?
+OPT_comma
   : // optional
   | ','
 ;
 
 unary_operation
   : '!' expression
-    -> new NotOperation($2)
+    -> new NotOperation($expression)
 ;
 
 binary_operation
@@ -135,10 +143,6 @@ else_if
 
 OPT_else
   : // optional
-  | else
-;
-
-else
-  : ELSE '{' block '}'
+  | ELSE '{' block '}'
   -> $block
 ;

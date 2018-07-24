@@ -41,6 +41,8 @@ statement
     -> new Assignment($IDENTIFIER, $expression)
   | FOR IDENTIFIER IN expression '{' block '}'
     -> new ForLoop($IDENTIFIER, $expression, $block)
+  | IF expression '{' block '}' OPT_else_ifs OPT_else
+    -> new IfStatement($expression, $block, $OPT_else_ifs, $OPT_else)
 ;
 
 expression
@@ -112,4 +114,31 @@ binary_operation
     -> new OrOperation($1, $3)
   | expression '[' expression ']'
     -> new MemberOperation($1, $3)
+;
+
+OPT_else_ifs
+  : // optional
+  | else_ifs
+;
+
+else_ifs
+  : else_if
+    -> [$else_if]
+  | else_ifs else_if
+    { $$.push($else_if) }
+;
+
+else_if
+  : ELIF expression '{' block '}'
+  -> { condition: $expression, body: $block }
+;
+
+OPT_else
+  : // optional
+  | else
+;
+
+else
+  : ELSE '{' block '}'
+  -> $block
 ;

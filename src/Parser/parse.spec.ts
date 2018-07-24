@@ -1,5 +1,11 @@
 import {
-  Assignment, Block, ExportStatement, ForLoop, NodeAddition, NodeSelection,
+  Assignment,
+  Block,
+  ExportStatement,
+  ForLoop,
+  IfStatement,
+  NodeAddition,
+  NodeSelection,
 } from '../Constructor'
 import { Identifier, Literal, NotOperation } from '../Constructor/Expression'
 import {
@@ -175,6 +181,53 @@ describe('parse', () => {
     expect(loop.expression)
       .toEqual(new Literal([new Literal(1), new Literal(5)]))
     expect(loop.body).toEqual(new Block([new Literal(55)]))
+  })
+
+  it('should support if statement', () => {
+    block = parse('if true { 1 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(IfStatement)
+    expect(statement).toEqual(new IfStatement(
+      new Literal(true),
+      new Block([new Literal(1)]),
+    ))
+  })
+
+  it('should support if statement with else if', () => {
+    block = parse('if true { 1 } elif false { 2 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(IfStatement)
+    expect(statement).toEqual(new IfStatement(
+      new Literal(true),
+      new Block([new Literal(1)]),
+      [{ condition: new Literal(false), body: new Block([new Literal(2)])}],
+    ))
+  })
+
+  it('should support if statement with multiple else ifs', () => {
+    block = parse('if true { 1 } elif false { 2 } elif true { 3 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(IfStatement)
+    expect(statement).toEqual(new IfStatement(
+      new Literal(true),
+      new Block([new Literal(1)]),
+      [
+        { condition: new Literal(false), body: new Block([new Literal(2)])},
+        { condition: new Literal(true), body: new Block([new Literal(3)])},
+      ],
+    ))
+  })
+
+  it('should support if statement with else', () => {
+    block = parse('if true { 1 } else { 2 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(IfStatement)
+    expect(statement).toEqual(new IfStatement(
+      new Literal(true),
+      new Block([new Literal(1)]),
+      [],
+      new Block([new Literal(2)]),
+    ))
   })
 
   it('should support node addition', () => {

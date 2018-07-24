@@ -18,6 +18,15 @@
 ')'
   return 'RPARAN'
 
+'['
+  return 'LBRACKET'
+
+']'
+  return 'RBRACKET'
+
+','
+  return 'COMMA'
+
 '->'
   return 'RARROW'
 

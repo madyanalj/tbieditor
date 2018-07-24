@@ -59,6 +59,22 @@ literal
     -> new Literal(true)
   | FALSE
     -> new Literal(false)
+  | LBRACKET array_elements comma? RBRACKET
+    -> new Literal($2)
+;
+
+array_elements
+  : // optional
+    -> []
+  | expression
+    -> [$expression]
+  | array_elements COMMA expression
+    { $$.push($expression) }
+;
+
+comma?
+  : // optional
+  | COMMA
 ;
 
 unary_operation

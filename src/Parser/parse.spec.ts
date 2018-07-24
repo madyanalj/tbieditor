@@ -18,7 +18,7 @@ import {
 } from '../Constructor/Expression/BinaryOperation'
 import { parse } from './'
 
-describe('Parser', () => {
+describe('parse', () => {
   let block: Block
 
   it('should return a Block', () => {
@@ -85,6 +85,33 @@ describe('Parser', () => {
     const statement = block.statements[0]
     expect(statement).toBeInstanceOf(Literal)
     expect((statement as Literal).value).toBe(false)
+  })
+
+  it('should support array literal', () => {
+    block = parse('[5]')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value).toEqual([new Literal(5)])
+  })
+
+  it('should support array literal with multiple elements', () => {
+    block = parse('[1, 2, 3]')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value)
+      .toEqual([new Literal(1), new Literal(2), new Literal(3)])
+  })
+
+  it('should support array literal with trailing comma', () => {
+    block = parse('[1, 2, 3,]')
+    expect(block).toEqual(parse('[1, 2, 3]'))
+  })
+
+  it('should support empty array literal', () => {
+    block = parse('[]')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value).toEqual([])
   })
 
   it('should support identifier', () => {

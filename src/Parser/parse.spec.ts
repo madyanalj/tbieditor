@@ -1,5 +1,5 @@
 import {
-  Assignment, Block, ExportStatement, NodeAddition, NodeSelection,
+  Assignment, Block, ExportStatement, ForLoop, NodeAddition, NodeSelection,
 } from '../Constructor'
 import { Identifier, Literal, NotOperation } from '../Constructor/Expression'
 import {
@@ -164,6 +164,17 @@ describe('parse', () => {
     const assignment = statement as Assignment
     expect(assignment.identifier).toBe('hello')
     expect((assignment.expression as Literal).value).toBe(1)
+  })
+
+  it('should support for loop', () => {
+    block = parse('for $i in [1, 5] { 55 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(ForLoop)
+    const loop = statement as ForLoop
+    expect(loop.identifier).toBe('$i')
+    expect(loop.expression)
+      .toEqual(new Literal([new Literal(1), new Literal(5)]))
+    expect(loop.body).toEqual(new Block([new Literal(55)]))
   })
 
   it('should support node addition', () => {

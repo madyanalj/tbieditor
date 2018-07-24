@@ -24,6 +24,12 @@
 ']'
   return ']'
 
+'{'
+  return '{'
+
+'}'
+  return '}'
+
 ','
   return ','
 
@@ -71,6 +77,9 @@
 
 '!'
   return '!'
+
+('for'|'in')\b
+  return yytext.toUpperCase()
 
 ('true'|'false')\b
   return yytext.toUpperCase()

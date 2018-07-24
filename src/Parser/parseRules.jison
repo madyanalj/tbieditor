@@ -39,6 +39,8 @@ statement
     -> new ExportStatement($expression)
   | IDENTIFIER '=' expression
     -> new Assignment($IDENTIFIER, $expression)
+  | FOR IDENTIFIER IN expression '{' block '}'
+    -> new ForLoop($IDENTIFIER, $expression, $block)
 ;
 
 expression

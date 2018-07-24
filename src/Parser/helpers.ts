@@ -8,7 +8,7 @@ function processString(input: string): string {
 
 export { processNumber, processString }
 export {
-  Assignment, Block, ExportStatement, NodeAddition, NodeSelection,
+  Assignment, Block, ExportStatement, ForLoop, NodeAddition, NodeSelection,
 } from '../Constructor'
 export { Identifier, Literal, NotOperation } from '../Constructor/Expression'
 export {

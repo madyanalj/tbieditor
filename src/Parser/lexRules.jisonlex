@@ -12,6 +12,12 @@
 '/*'[\s\S]*?'*/'
   // skip multi-line comments
 
+'('
+  return 'LPARAN'
+
+')'
+  return 'RPARAN'
+
 '->'
   return 'RARROW'
 

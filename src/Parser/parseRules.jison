@@ -46,6 +46,8 @@ expression
   | literal
   | IDENTIFIER
     -> new Identifier($IDENTIFIER)
+  | LPARAN expression RPARAN
+    -> $expression
 ;
 
 literal

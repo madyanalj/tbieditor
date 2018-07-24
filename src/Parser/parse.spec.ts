@@ -298,6 +298,38 @@ describe('Parser', () => {
     )
   })
 
+  it('should support parenthesis', () => {
+    block = parse('(5)')
+    expect(block).toEqual(parse('5'))
+  })
+
+  it('should support higher precedence with parenthesis on the left', () => {
+    block = parse('(10 + 2) * 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(MultiplicationOperation)
+    const operation = statement as MultiplicationOperation
+    expect(operation.left).toEqual(
+      new AdditionOperation(new Literal(10), new Literal(2)),
+    )
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support higher precedence with parenthesis on the right', () => {
+    block = parse('10 * (2 + 5)')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(MultiplicationOperation)
+    const operation = statement as MultiplicationOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(
+      new AdditionOperation(new Literal(2), new Literal(5)),
+    )
+  })
+
+  it('should ignore parenthesis that do not make difference', () => {
+    block = parse('10 + (2 * 5)')
+    expect(block).toEqual(parse('10 + 2 * 5'))
+  })
+
   it('should support multiple statements', () => {
     block = parse('foo\nbar')
     let statement = block.statements[0]

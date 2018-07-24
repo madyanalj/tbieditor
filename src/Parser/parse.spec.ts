@@ -276,6 +276,28 @@ describe('Parser', () => {
     expect(operation.argument).toEqual(new Literal(false))
   })
 
+  it('should support left to right operation order', () => {
+    block = parse('10 * 2 + 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(AdditionOperation)
+    const operation = statement as AdditionOperation
+    expect(operation.left).toEqual(
+      new MultiplicationOperation(new Literal(10), new Literal(2)),
+    )
+    expect(operation.right).toEqual(new Literal(5))
+  })
+
+  it('should support higher precedence', () => {
+    block = parse('10 + 2 * 5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(AdditionOperation)
+    const operation = statement as AdditionOperation
+    expect(operation.left).toEqual(new Literal(10))
+    expect(operation.right).toEqual(
+      new MultiplicationOperation(new Literal(2), new Literal(5)),
+    )
+  })
+
   it('should support multiple statements', () => {
     block = parse('foo\nbar')
     let statement = block.statements[0]

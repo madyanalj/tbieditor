@@ -4,6 +4,7 @@
 %left '+' '-'
 %left '*' '/'
 %right '!'
+%left '[' ']'
 
 %start program
 
@@ -107,4 +108,6 @@ binary_operation
     -> new AndOperation($1, $3)
   | expression '||' expression
     -> new OrOperation($1, $3)
+  | expression '[' expression ']'
+    -> new MemberOperation($1, $3)
 ;

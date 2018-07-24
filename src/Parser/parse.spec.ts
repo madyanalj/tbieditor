@@ -12,6 +12,7 @@ import {
   IEQOperation,
   LTEQOperation,
   LTOperation,
+  MemberOperation,
   MultiplicationOperation,
   OrOperation,
   SubtractionOperation,
@@ -301,6 +302,24 @@ describe('parse', () => {
     expect(statement).toBeInstanceOf(NotOperation)
     const operation = statement as NotOperation
     expect(operation.argument).toEqual(new Literal(false))
+  })
+
+  it('should support member operation', () => {
+    block = parse('[10, 3, 5][1]')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(MemberOperation)
+    const operation = statement as MemberOperation
+    expect(operation.left).toEqual(parse('[10, 3, 5]').statements[0])
+    expect(operation.right).toEqual(parse('1').statements[0])
+  })
+
+  it('should support nested member operation', () => {
+    block = parse('[[1, 5], [2, 6]][1][0]')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(MemberOperation)
+    const operation = statement as MemberOperation
+    expect(operation.left).toEqual(parse('[[1, 5], [2, 6]][1]').statements[0])
+    expect(operation.right).toEqual(parse('0').statements[0])
   })
 
   it('should support left to right operation order', () => {

@@ -21,6 +21,7 @@ export {
   IEQOperation,
   LTEQOperation,
   LTOperation,
+  MemberOperation,
   MultiplicationOperation,
   OrOperation,
   SubtractionOperation,

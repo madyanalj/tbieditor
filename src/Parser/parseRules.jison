@@ -1,9 +1,9 @@
-%left OR
-%left AND
-%left EQ IEQ GT GTEQ LT LTEQ
-%left PLUS MINUS
-%left ASTERISK SLASH
-%right NOT
+%left '||'
+%left '&&'
+%left '==' '!=' '>' '>=' '<' '<='
+%left '+' '-'
+%left '*' '/'
+%right '!'
 
 %start program
 
@@ -30,13 +30,13 @@ statements
 
 statement
   : expression
-  | PLUS IDENTIFIER
+  | '+' IDENTIFIER
     -> new NodeAddition($IDENTIFIER)
-  | GT IDENTIFIER
+  | '>' IDENTIFIER
     -> new NodeSelection($IDENTIFIER)
-  | RARROW expression
+  | '->' expression
     -> new ExportStatement($expression)
-  | IDENTIFIER ASSIGN expression
+  | IDENTIFIER '=' expression
     -> new Assignment($IDENTIFIER, $expression)
 ;
 
@@ -46,7 +46,7 @@ expression
   | literal
   | IDENTIFIER
     -> new Identifier($IDENTIFIER)
-  | LPARAN expression RPARAN
+  | '(' expression ')'
     -> $expression
 ;
 
@@ -59,7 +59,7 @@ literal
     -> new Literal(true)
   | FALSE
     -> new Literal(false)
-  | LBRACKET array_elements comma? RBRACKET
+  | '[' array_elements comma? ']'
     -> new Literal($2)
 ;
 
@@ -68,43 +68,43 @@ array_elements
     -> []
   | expression
     -> [$expression]
-  | array_elements COMMA expression
+  | array_elements ',' expression
     { $$.push($expression) }
 ;
 
 comma?
   : // optional
-  | COMMA
+  | ','
 ;
 
 unary_operation
-  : NOT expression
+  : '!' expression
     -> new NotOperation($2)
 ;
 
 binary_operation
-  : expression PLUS expression
+  : expression '+' expression
     -> new AdditionOperation($1, $3)
-  | expression MINUS expression
+  | expression '-' expression
     -> new SubtractionOperation($1, $3)
-  | expression ASTERISK expression
+  | expression '*' expression
     -> new MultiplicationOperation($1, $3)
-  | expression SLASH expression
+  | expression '/' expression
     -> new DivisionOperation($1, $3)
-  | expression EQ expression
+  | expression '==' expression
     -> new EQOperation($1, $3)
-  | expression IEQ expression
+  | expression '!=' expression
     -> new IEQOperation($1, $3)
-  | expression GT expression
+  | expression '>' expression
     -> new GTOperation($1, $3)
-  | expression GTEQ expression
+  | expression '>=' expression
     -> new GTEQOperation($1, $3)
-  | expression LT expression
+  | expression '<' expression
     -> new LTOperation($1, $3)
-  | expression LTEQ expression
+  | expression '<=' expression
     -> new LTEQOperation($1, $3)
-  | expression AND expression
+  | expression '&&' expression
     -> new AndOperation($1, $3)
-  | expression OR expression
+  | expression '||' expression
     -> new OrOperation($1, $3)
 ;

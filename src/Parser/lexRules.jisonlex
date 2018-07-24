@@ -13,64 +13,64 @@
   // skip multi-line comments
 
 '('
-  return 'LPARAN'
+  return '('
 
 ')'
-  return 'RPARAN'
+  return ')'
 
 '['
-  return 'LBRACKET'
+  return '['
 
 ']'
-  return 'RBRACKET'
+  return ']'
 
 ','
-  return 'COMMA'
+  return ','
 
 '->'
-  return 'RARROW'
+  return '->'
 
 '+'
-  return 'PLUS'
+  return '+'
 
 '-'
-  return 'MINUS'
+  return '-'
 
 '*'
-  return 'ASTERISK'
+  return '*'
 
 '/'
-  return 'SLASH'
+  return '/'
 
 '=='
-  return 'EQ'
+  return '=='
 
 '!='
-  return 'IEQ'
+  return '!='
 
 '='
-  return 'ASSIGN'
+  return '='
 
 '>='
-  return 'GTEQ'
+  return '>='
 
 '>'
-  return 'GT'
+  return '>'
 
 '<='
-  return 'LTEQ'
+  return '<='
 
 '<'
-  return 'LT'
+  return '<'
 
 '&&'
-  return 'AND'
+  return '&&'
 
 '||'
-  return 'OR'
+  return '||'
 
 '!'
-  return 'NOT'
+  return '!'
 
 ('true'|'false')\b
   return yytext.toUpperCase()

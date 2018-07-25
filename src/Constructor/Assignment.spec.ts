@@ -1,3 +1,4 @@
+import { RectNode, TextNode } from '../SVG'
 import { Store } from '../Store'
 import { Assignment } from './'
 import { Literal } from './Expression'
@@ -8,6 +9,11 @@ describe('Assignment', () => {
 
     beforeEach(() => {
       store = new Store()
+    })
+
+    it('should return undefined', () => {
+      const assignment = new Assignment('$foo', new Literal(111))
+      expect(assignment.evaluate(store)).toBeUndefined()
     })
 
     it('should support setting new value in store', () => {
@@ -29,9 +35,12 @@ describe('Assignment', () => {
       expect(store.getSelectedNodeProperty('width')).toBe(222)
     })
 
-    it('should return undefined', () => {
-      const assignment = new Assignment('$foo', new Literal(111))
-      expect(assignment.evaluate(store)).toBeUndefined()
+    it('should support changing node type', () => {
+      store.addNode('#foo', new RectNode())
+      store.selectNode('#foo')
+      const assignment = new Assignment('type', new Literal('text'))
+      assignment.evaluate(store)
+      expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
     })
   })
 })

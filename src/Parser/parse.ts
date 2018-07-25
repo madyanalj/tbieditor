@@ -12,7 +12,7 @@ const lexRules = readFile('lexRules.jisonlex')
 const parseRules = readFile('parseRules.jison')
 const grammar = `%{ ${grammarHeader} %} %lex ${lexRules} /lex ${parseRules}`
 
-function makeParser(): Parser {
+function makeParser(filename: string): Parser {
   const parser = new Parser(grammar)
   const { performAction } = parser
   parser.performAction = function() {
@@ -20,6 +20,7 @@ function makeParser(): Parser {
     const { $: current, _$: information } = this
     if (current instanceof Constructor) {
       current.location = {
+        filename,
         start: information.range[0],
         end: information.range[1] - 1,
         line: information.first_line,
@@ -31,8 +32,8 @@ function makeParser(): Parser {
   return parser
 }
 
-function parse(input: string): Block {
-  return makeParser().parse(input.trim())
+function parse(input: string, filename: string = ''): Block {
+  return makeParser(filename).parse(input.trim())
 }
 
 export { parse }

@@ -36,13 +36,8 @@ describe('parse', () => {
   it('should contain correct location information', () => {
     block = parse('a = 36', 'hello.tbi')
     const statement = block.statements[0]
-    expect((statement as Assignment).expression.location).toEqual({
-      filename: 'hello.tbi',
-      start: 4,
-      end: 5,
-      line: 1,
-      column: 5,
-    })
+    expect((statement as Assignment).expression.location)
+      .toEqual({ filename: 'hello.tbi', line: 1, column: 5 })
   })
 
   it('should support empty input', () => {

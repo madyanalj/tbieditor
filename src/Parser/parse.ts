@@ -21,8 +21,6 @@ function makeParser(filename: string): Parser {
     if (current instanceof Constructor) {
       current.location = {
         filename,
-        start: information.range[0],
-        end: information.range[1] - 1,
         line: information.first_line,
         column: information.first_column + 1,
       }

@@ -2,15 +2,10 @@ import { RectNode, SVGNode } from './'
 
 describe('SVGNode', () => {
   let node: SVGNode
-  const attributes = [
-    ['viewBox', '0 0 200 300'],
-    ['xmlns', 'http://www.w3.org/2000/svg'],
-  ]
+  const attributes = [['xmlns', 'http://www.w3.org/2000/svg']]
 
   beforeEach(() => {
     node = new SVGNode()
-    node.properties.width = 200
-    node.properties.height = 300
   })
 
   describe('#attributes', () => {
@@ -27,7 +22,7 @@ describe('SVGNode', () => {
     let output: string
 
     function svg(children = ''): string {
-      return `<svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">${children}</svg>`
+      return `<svg xmlns="http://www.w3.org/2000/svg">${children}</svg>`
     }
 
     function rect(): string {

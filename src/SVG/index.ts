@@ -1,5 +1,6 @@
 export * from './BaseNode'
-export * from './DEFAULT_SVG_ATTRIBUTES'
 export * from './NonEmptyNode'
+export * from './PRESENTATION_PROPERTIES'
+export * from './Properties'
 export * from './RectNode'
 export * from './SVGNode'

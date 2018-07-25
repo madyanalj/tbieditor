@@ -2,28 +2,26 @@ import { RectNode } from './'
 
 describe('RectNode', () => {
   let node: RectNode
-  const attributes = [['width', 200], ['height', 500], ['x', 50]]
+  const attributes = [['width', 200], ['x', 50], ['fill', 'blue']]
 
   beforeEach(() => {
     node = new RectNode()
     node.properties.width = 200
-    node.properties.height = 500
     node.properties.x = 50
+    node.properties.fill = 'blue'
   })
 
   describe('#attributes', () => {
-    const allAttributes = [...attributes, ['y', 20]]
-
-    beforeEach(() => {
-      node.properties.y = 20
-    })
-
-    it('should return array with correct length', () => {
-      expect(node.attributes).toHaveLength(allAttributes.length)
-    })
-
-    it.each(allAttributes)('should contain %s attribute', (name, value) => {
+    it.each(attributes)('should contain %s attribute', (name, value) => {
       expect(node.attributes).toContainEqual([name, value])
+    })
+
+    it('should contain unfilterd attribute', () => {
+      expect(node.attributes).toContainEqual(['height', 100])
+    })
+
+    it('should contain unfilterd defaulted attribute', () => {
+      expect(node.attributes).toContainEqual(['y', 0])
     })
   })
 
@@ -60,7 +58,8 @@ describe('RectNode', () => {
     })
 
     it('should follow correct svg format', () => {
-      expect(output).toBe('<rect width="200" height="500" x="50" />')
+      expect(output)
+        .toBe('<rect x="50" width="200" height="100" fill="blue" />')
     })
   })
 })

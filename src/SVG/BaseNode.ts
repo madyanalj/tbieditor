@@ -1,7 +1,8 @@
-import { DEFAULT_SVG_ATTRIBUTES } from './'
+import { PRESENTATION_PROPERTIES, Properties } from './'
 
 abstract class BaseNode {
-  public readonly properties = {}
+  public readonly properties: Properties = {}
+  protected readonly defaultProperties = {}
   protected readonly abstract TAG: string
 
   public get attributes(): Array<[string, any]> {
@@ -9,8 +10,12 @@ abstract class BaseNode {
   }
 
   private get filterdAttributes(): Array<[string, any]> {
+    const defaults: Properties = {
+      ...PRESENTATION_PROPERTIES,
+      ...this.defaultProperties,
+    }
     return this.attributes
-      .filter(([name, value]) => DEFAULT_SVG_ATTRIBUTES[name] !== value)
+      .filter(([name, value]) => defaults[name] !== value)
   }
 
   public generate(): string {

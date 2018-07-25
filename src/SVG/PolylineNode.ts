@@ -11,7 +11,7 @@ class PolylineNode extends BaseNode {
     stroke: 'black',
   }
   protected readonly defaultProperties = defaultProperties
-  protected readonly TAG = 'polyline'
+  protected readonly TAG: string = 'polyline'
 }
 
 export { PolylineNode }

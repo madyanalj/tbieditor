@@ -26,12 +26,6 @@ describe('Store', () => {
       store.setNodeProperty('#__ROOT', 'width', 250)
       expect(store.getNodeProperty('#__ROOT', 'width')).toBe(250)
     })
-
-    it('should support changing node type', () => {
-      store.addNode('#foo', new RectNode())
-      store.setNodeProperty('#foo', 'type', 'text')
-      expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
-    })
   })
 
   describe('#setSelectedNodeProperty & #getSelectedNodeProperty', () => {
@@ -63,22 +57,45 @@ describe('Store', () => {
     })
   })
 
-  describe('#changeNodeType', () => {
+  describe('#replaceNode', () => {
     let node: RectNode
 
     beforeEach(() => {
       node = new RectNode()
       store.addNode('#foo', node)
-      store.selectNode('#foo')
       store.setNodeProperty('#foo', 'content', 'Hello World!')
-      store.changeNodeType('#foo', 'text')
+      store.replaceNode('#foo', new TextNode())
     })
 
-    it('should change node type into correct value', () => {
+    it('should replaced node type with correct value', () => {
       expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
     })
 
-    it('should be replaced into root node children', () => {
+    it('should replaced node inside root children', () => {
+      expect(store.rootNode.children[0]).toBe(store.getVariable('#foo'))
+    })
+
+    it('should keep defined properties', () => {
+      expect(store.getNodeProperty('#foo', 'content')).toBe('Hello World!')
+    })
+  })
+
+  describe('#replaceSelectedNode', () => {
+    let node: RectNode
+
+    beforeEach(() => {
+      node = new RectNode()
+      store.addNode('#foo', node)
+      store.setNodeProperty('#foo', 'content', 'Hello World!')
+      store.selectNode('#foo')
+      store.replaceSelectedNode(new TextNode())
+    })
+
+    it('should replaced node type with correct value', () => {
+      expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
+    })
+
+    it('should replaced node inside root children', () => {
       expect(store.rootNode.children[0]).toBe(store.getVariable('#foo'))
     })
 

@@ -1,4 +1,3 @@
-import * as SVG from '../SVG'
 import { BaseNode, SVGNode } from '../SVG'
 import { State } from './'
 
@@ -23,10 +22,6 @@ class Store {
   public setNodeProperty(
     canvasIdentifier: string, propertyIdentifier: string, value: any,
   ): void {
-    if (propertyIdentifier === 'type') {
-      this.changeNodeType(canvasIdentifier, value)
-      return
-    }
     this.getVariable(canvasIdentifier).properties[propertyIdentifier] = value
   }
 
@@ -53,15 +48,17 @@ class Store {
     this.selectedNode = identifier
   }
 
-  public changeNodeType(identifier: string, type: string): void {
-    const oldNode = this.getVariable(identifier)
-    const oldNodeIndex = this.rootNode.children
-      .findIndex((child) => child === oldNode)
-    const nodeClass = type.charAt(0).toUpperCase() + type.slice(1) + 'Node'
-    const node = new (SVG as any)[nodeClass]()
-    Object.assign(node.properties, oldNode.properties)
-    this.setVariable(identifier, node)
-    this.rootNode.children[oldNodeIndex] = node
+  public replaceNode(identifier: string, value: BaseNode): void {
+    const oldValue = this.getVariable(identifier)
+    const oldValueIndex = this.rootNode.children
+      .findIndex((child) => child === oldValue)
+    Object.assign(value.properties, oldValue.properties)
+    this.setVariable(identifier, value)
+    this.rootNode.children[oldValueIndex] = value
+  }
+
+  public replaceSelectedNode(value: BaseNode): void {
+    this.replaceNode(this.selectedNode, value)
   }
 }
 

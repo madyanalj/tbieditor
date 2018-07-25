@@ -16,9 +16,10 @@ describe('Identifier', () => {
       expect(identifier.evaluate(store)).toBe(123)
     })
 
-    it('should support undefined identifier', () => {
+    it('should support handling undefined identifier', () => {
       const identifier = new Identifier('$bar')
-      expect(identifier.evaluate(store)).toBeUndefined()
+      identifier.location = { filename: 'foo-bar.tbi', line: 1, column: 2 }
+      expect(() => identifier.evaluate(store)).toThrow(ReferenceError)
     })
 
     it('should support node property identifier', () => {

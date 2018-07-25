@@ -18,6 +18,7 @@ describe('IfStatement', () => {
 
     beforeEach(() => {
       store = new Store()
+      store.setVariable('$i', 0)
       statement = new IfStatement(
         idEquality(1),
         outputBlock('If'),
@@ -46,28 +47,27 @@ describe('IfStatement', () => {
     })
 
     it('should run else block when none of the conditions are true', () => {
-      store.setVariable('$i', 0)
       statement.evaluate(store)
       expect(store.getVariable('$output')).toBe('Else')
     })
 
     it('should support not having elseIfs', () => {
       statement = new IfStatement(
-        new Literal(false),
+        new Literal(true),
         outputBlock('If'),
       )
       statement.evaluate(store)
-      expect(store.getVariable('$output')).toBeUndefined()
+      expect(store.getVariable('$output')).toBe('If')
     })
 
     it('should support not having else', () => {
       statement = new IfStatement(
-        new Literal(false),
+        new Literal(true),
         outputBlock('If'),
         [],
       )
       statement.evaluate(store)
-      expect(store.getVariable('$output')).toBeUndefined()
+      expect(store.getVariable('$output')).toBe('If')
     })
   })
 })

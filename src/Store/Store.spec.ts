@@ -26,6 +26,12 @@ describe('Store', () => {
       store.setNodeProperty('#__ROOT', 'width', 250)
       expect(store.getNodeProperty('#__ROOT', 'width')).toBe(250)
     })
+
+    it('should support changing node type', () => {
+      store.addNode('#foo', new RectNode())
+      store.setNodeProperty('#foo', 'type', 'text')
+      expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
+    })
   })
 
   describe('#setSelectedNodeProperty & #getSelectedNodeProperty', () => {

@@ -23,6 +23,10 @@ class Store {
   public setNodeProperty(
     canvasIdentifier: string, propertyIdentifier: string, value: any,
   ): void {
+    if (propertyIdentifier === 'type') {
+      this.changeNodeType(canvasIdentifier, value)
+      return
+    }
     this.getVariable(canvasIdentifier).properties[propertyIdentifier] = value
   }
 

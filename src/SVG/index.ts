@@ -1,6 +1,7 @@
 export * from './BaseNode'
 export * from './CircleNode'
 export * from './EllipseNode'
+export * from './LineNode'
 export * from './NonEmptyNode'
 export * from './PRESENTATION_PROPERTIES'
 export * from './Properties'

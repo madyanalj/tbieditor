@@ -43,9 +43,9 @@ statement
     -> new ExportStatement($expression)
   | IDENTIFIER '=' expression
     -> new Assignment($IDENTIFIER, $expression)
-  | FOR IDENTIFIER IN expression '{' block '}'
+  | FOR IDENTIFIER IN expression BLOCK_START block BLOCK_END
     -> new ForLoop($IDENTIFIER, $expression, $block)
-  | IF expression '{' block '}' OPT_else_ifs OPT_else
+  | IF expression BLOCK_START block BLOCK_END OPT_else_ifs OPT_else
     -> new IfStatement($expression, $block, $OPT_else_ifs, $OPT_else)
 ;
 
@@ -137,12 +137,12 @@ else_ifs
 ;
 
 else_if
-  : ELIF expression '{' block '}'
+  : ELIF expression BLOCK_START block BLOCK_END
   -> { condition: $expression, body: $block }
 ;
 
 OPT_else
   : // optional
-  | ELSE '{' block '}'
+  | ELSE BLOCK_START block BLOCK_END
   -> $block
 ;

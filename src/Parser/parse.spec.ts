@@ -183,8 +183,29 @@ describe('parse', () => {
     expect(loop.body).toEqual(new Block([new Literal(55)]))
   })
 
+  it('should support for loop with newline', () => {
+    block = parse('for $i in [1, 5] {\n55\n}')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(ForLoop)
+    const loop = statement as ForLoop
+    expect(loop.identifier).toBe('$i')
+    expect(loop.expression)
+      .toEqual(new Literal([new Literal(1), new Literal(5)]))
+    expect(loop.body).toEqual(new Block([new Literal(55)]))
+  })
+
   it('should support if statement', () => {
     block = parse('if true { 1 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(IfStatement)
+    expect(statement).toEqual(new IfStatement(
+      new Literal(true),
+      new Block([new Literal(1)]),
+    ))
+  })
+
+  it('should support if statement with newline', () => {
+    block = parse('if true {\n1\n}')
     const statement = block.statements[0]
     expect(statement).toBeInstanceOf(IfStatement)
     expect(statement).toEqual(new IfStatement(

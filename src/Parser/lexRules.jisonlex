@@ -1,5 +1,11 @@
 %%
 
+'{'[\r\n]*
+  return 'BLOCK_START'
+
+[\r\n]*'}'
+  return 'BLOCK_END'
+
 [\r\n]+
   return 'NEWLINE'
 
@@ -23,12 +29,6 @@
 
 ']'
   return ']'
-
-'{'
-  return '{'
-
-'}'
-  return '}'
 
 ','
   return ','

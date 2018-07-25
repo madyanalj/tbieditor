@@ -15,7 +15,10 @@ abstract class BaseNode {
       ...this.defaultProperties,
     }
     return this.attributes
-      .filter(([name, value]) => defaults[name] !== value)
+      .filter(([name, value]) => {
+        const defaultValue = defaults[name]
+        return typeof defaultValue !== 'undefined' && defaultValue !== value
+      })
   }
 
   public generate(): string {

@@ -2,6 +2,7 @@ import { NonEmptyNode, Properties } from './'
 
 const defaultProperties = {
   viewBox: 'none',
+  xmlns: null,
 }
 
 class SVGNode extends NonEmptyNode {

@@ -1,3 +1,4 @@
+import * as SVG from '../SVG'
 import { BaseNode, SVGNode } from '../SVG'
 import { State } from './'
 
@@ -46,6 +47,17 @@ class Store {
 
   public selectNode(identifier: string): void {
     this.selectedNode = identifier
+  }
+
+  public changeNodeType(identifier: string, type: string): void {
+    const oldNode = this.getVariable(identifier)
+    const oldNodeIndex = this.rootNode.children
+      .findIndex((child) => child === oldNode)
+    const nodeClass = type.charAt(0).toUpperCase() + type.slice(1) + 'Node'
+    const node = new (SVG as any)[nodeClass]()
+    Object.assign(node.properties, oldNode.properties)
+    this.setVariable(identifier, node)
+    this.rootNode.children[oldNodeIndex] = node
   }
 }
 

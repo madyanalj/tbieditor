@@ -1,4 +1,4 @@
-import { RectNode, SVGNode } from '../SVG'
+import { RectNode, SVGNode, TextNode } from '../SVG'
 import { Store } from './'
 
 describe('Store', () => {
@@ -54,6 +54,30 @@ describe('Store', () => {
       store.setSelectedNodeProperty('width', 150)
       expect(store.getNodeProperty('#__ROOT', 'width')).toBe(250)
       expect(store.getNodeProperty('#box', 'width')).toBe(150)
+    })
+  })
+
+  describe('#changeNodeType', () => {
+    let node: RectNode
+
+    beforeEach(() => {
+      node = new RectNode()
+      store.addNode('#foo', node)
+      store.selectNode('#foo')
+      store.setNodeProperty('#foo', 'content', 'Hello World!')
+      store.changeNodeType('#foo', 'text')
+    })
+
+    it('should change node type into correct value', () => {
+      expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
+    })
+
+    it('should be replaced into root node children', () => {
+      expect(store.rootNode.children[0]).toBe(store.getVariable('#foo'))
+    })
+
+    it('should keep defined properties', () => {
+      expect(store.getNodeProperty('#foo', 'content')).toBe('Hello World!')
     })
   })
 })

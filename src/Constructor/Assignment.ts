@@ -1,4 +1,13 @@
-import * as SVG from '../SVG'
+import {
+  CircleNode,
+  EllipseNode,
+  LineNode,
+  PathNode,
+  PolygonNode,
+  PolylineNode,
+  RectNode,
+  TextNode,
+} from '../SVG'
 import { StateVariable, Store } from '../Store'
 import { Constructor } from './'
 import { Expression } from './Expression'
@@ -16,16 +25,29 @@ class Assignment extends Constructor {
     if (this.identifier[0] === '$') {
       store.setVariable(this.identifier, evaluationResult)
     } else if (this.identifier === 'type') {
-      store.replaceSelectedNode(this.makeNodeByType(evaluationResult))
+      store.replaceSelectedNode(this.makeNode(evaluationResult))
     } else {
       store.setSelectedNodeProperty(this.identifier, evaluationResult)
     }
     return undefined
   }
 
-  private makeNodeByType(type: string) {
-    const nodeClass = type.charAt(0).toUpperCase() + type.slice(1) + 'Node'
-    return new (SVG as any)[nodeClass]()
+  private makeNode(type: string) {
+    const nodeClasses: { [key: string]: any } = {
+      circle: CircleNode,
+      ellipse: EllipseNode,
+      line: LineNode,
+      path: PathNode,
+      polygon: PolygonNode,
+      polyline: PolylineNode,
+      rect: RectNode,
+      text: TextNode,
+    }
+    const nodeClass = nodeClasses[type]
+    if (typeof nodeClass === 'undefined') {
+      this.throwTypeError(type, 'an object type')
+    }
+    return new nodeClass()
   }
 }
 

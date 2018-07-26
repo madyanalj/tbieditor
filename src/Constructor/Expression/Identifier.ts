@@ -12,11 +12,7 @@ class Identifier extends Expression {
     const result = this.isNodePropertyIdentifier()
       ? store.getSelectedNodeProperty(this.name)
       : store.getVariable(this.name)
-    if (typeof result === 'undefined') {
-      throw new ReferenceError(
-        `${this.name} is not defined <${this.location!.filename}:${this.location!.line}:${this.location!.column}>`,
-      )
-    }
+    if (typeof result === 'undefined') this.throwReferenceError(this.name)
     return result
   }
 

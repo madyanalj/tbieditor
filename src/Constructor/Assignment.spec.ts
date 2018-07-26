@@ -42,5 +42,12 @@ describe('Assignment', () => {
       assignment.evaluate(store)
       expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
     })
+
+    it('should through TypeError when invalid type is given', () => {
+      store.addNode('#foo', new RectNode())
+      store.selectNode('#foo')
+      const assignment = new Assignment('type', new Literal('bar'))
+      expect(() => assignment.evaluate(store)).toThrow(TypeError)
+    })
   })
 })

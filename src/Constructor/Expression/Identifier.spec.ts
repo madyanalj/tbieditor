@@ -18,8 +18,9 @@ describe('Identifier', () => {
 
     it('should support handling undefined identifier', () => {
       const identifier = new Identifier('$bar')
-      identifier.location = { filename: 'foo-bar.tbi', line: 1, column: 2 }
+      identifier.location = { filename: 'foo-bar.tbi', line: 143, column: 342 }
       expect(() => identifier.evaluate(store)).toThrow(ReferenceError)
+      expect(() => identifier.evaluate(store)).toThrow('at foo-bar.tbi:143:342')
     })
 
     it('should support node property identifier', () => {

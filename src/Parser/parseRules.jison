@@ -61,6 +61,8 @@ expression
     -> $expression
   | FUNC '(' OPT_comma_separated_identifiers OPT_comma ')' BLOCK_START block BLOCK_END
     -> new FunctionDeclaration($OPT_comma_separated_identifiers, $block)
+  | IDENTIFIER '(' OPT_comma_separated_expressions OPT_comma ')'
+    -> new FunctionCall($IDENTIFIER, $OPT_comma_separated_expressions)
 ;
 
 literal

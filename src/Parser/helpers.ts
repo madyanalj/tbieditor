@@ -17,6 +17,7 @@ export {
   NodeSelection,
 } from '../Constructor'
 export {
+  FunctionCall,
   FunctionDeclaration,
   Identifier,
   Literal,

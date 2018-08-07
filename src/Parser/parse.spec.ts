@@ -8,6 +8,7 @@ import {
   NodeSelection,
 } from '../Constructor'
 import {
+  FunctionCall,
   FunctionDeclaration,
   Identifier,
   Literal,
@@ -213,6 +214,28 @@ describe('parse', () => {
     const statement = block.statements[0]
     expect(statement).toBeInstanceOf(FunctionDeclaration)
     expect(statement).toMatchObject(new FunctionDeclaration([], new Block([])))
+  })
+
+  it('should support function call', () => {
+    block = parse('$foo(1)')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(FunctionCall)
+    expect(statement).toMatchObject(new FunctionCall('$foo', [new Literal(1)]))
+  })
+
+  it('should support function call with multiple parameters', () => {
+    block = parse('$foo(1, 2)')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(FunctionCall)
+    expect(statement)
+      .toMatchObject(new FunctionCall('$foo', [new Literal(1), new Literal(2)]))
+  })
+
+  it('should support function call with no parameters', () => {
+    block = parse('$foo()')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(FunctionCall)
+    expect(statement).toMatchObject(new FunctionCall('$foo', []))
   })
 
   it('should support assignment', () => {

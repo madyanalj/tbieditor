@@ -1,6 +1,9 @@
+import { readFileSync } from 'fs'
+import { extname } from 'path'
 import {
   CircleNode,
   EllipseNode,
+  ImageNode,
   LineNode,
   PathNode,
   PolygonNode,
@@ -32,6 +35,10 @@ class Assignment extends Constructor {
     } else if (this.identifier === 'content') {
       store.replaceSelectedNode(new TextNode())
       store.setSelectedNodeProperty(this.identifier, evaluationResult)
+    } else if (this.identifier === 'href') {
+      store.replaceSelectedNode(new ImageNode())
+      const uri = this.getDataURI(evaluationResult)
+      store.setSelectedNodeProperty('xlink:href', uri)
     } else {
       store.setSelectedNodeProperty(this.identifier, evaluationResult)
     }
@@ -42,6 +49,7 @@ class Assignment extends Constructor {
     const nodeClasses: { [key: string]: any } = {
       circle: CircleNode,
       ellipse: EllipseNode,
+      image: ImageNode,
       line: LineNode,
       path: PathNode,
       polygon: PolygonNode,
@@ -54,6 +62,13 @@ class Assignment extends Constructor {
       this.throwTypeError(type, 'an object type')
     }
     return new nodeClass()
+  }
+
+  private getDataURI(filename: string): string {
+    let extension = extname(filename).slice(1)
+    if (extension === 'jpg') extension = 'jpeg'
+    const data = readFileSync(filename, 'base64')
+    return `data:image/${extension};base64,${data}`
   }
 }
 

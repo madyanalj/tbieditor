@@ -1,7 +1,10 @@
-import { RectNode, TextNode } from '../SVG'
+import { readFileSync } from 'fs'
+import { ImageNode, RectNode, TextNode } from '../SVG'
 import { Store } from '../Store'
 import { Assignment } from './'
 import { Literal } from './Expression'
+
+jest.mock('fs')
 
 describe('Assignment', () => {
   describe('#evaluate', () => {
@@ -58,6 +61,28 @@ describe('Assignment', () => {
       expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
       expect(store.getVariable('#foo').properties)
         .toHaveProperty('content', 'Hello')
+    })
+
+    it('should support changing node type to image when href is set', () => {
+      store.addNode('#foo', new RectNode())
+      store.selectNode('#foo')
+      const assignment = new Assignment('href', new Literal('bar.png'))
+      assignment.evaluate(store)
+      expect(store.getVariable('#foo')).toBeInstanceOf(ImageNode)
+      expect(readFileSync).toHaveBeenCalledWith('bar.png', 'base64')
+      const uri = store.getVariable('#foo').properties['xlink:href']
+      expect(uri.indexOf('data:image/png;base64,')).toBe(0)
+    })
+
+    it('should support changing node type to jpeg image when href is set', () => {
+      store.addNode('#foo', new RectNode())
+      store.selectNode('#foo')
+      const assignment = new Assignment('href', new Literal('bar.jpg'))
+      assignment.evaluate(store)
+      expect(store.getVariable('#foo')).toBeInstanceOf(ImageNode)
+      expect(readFileSync).toHaveBeenCalledWith('bar.jpg', 'base64')
+      const uri = store.getVariable('#foo').properties['xlink:href']
+      expect(uri.indexOf('data:image/jpeg;base64,')).toBe(0)
     })
 
     it('should through TypeError when assigning node variable', () => {

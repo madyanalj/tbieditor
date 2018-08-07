@@ -274,6 +274,13 @@ describe('parse', () => {
     expect((statement as NodeAddition).identifier).toBe('#foo')
   })
 
+  it('should support node addition without identifier', () => {
+    block = parse('+')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(NodeAddition)
+    expect((statement as NodeAddition).identifier).toBe('#__')
+  })
+
   it('should support node selection', () => {
     block = parse('> #foo')
     const statement = block.statements[0]

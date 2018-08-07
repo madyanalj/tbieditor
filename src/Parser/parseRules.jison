@@ -35,6 +35,8 @@ statements
 
 statement
   : expression
+  | '+'
+    -> new NodeAddition('#__')
   | '+' IDENTIFIER
     -> new NodeAddition($IDENTIFIER)
   | '>' IDENTIFIER

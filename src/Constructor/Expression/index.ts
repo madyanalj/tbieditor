@@ -1,4 +1,5 @@
 export * from './Expression'
+export * from './FunctionCall'
 export * from './FunctionDeclaration'
 export * from './Identifier'
 export * from './Literal'

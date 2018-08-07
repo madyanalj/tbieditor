@@ -12,6 +12,9 @@ function ensureDirectoryExists(path: string): void {
   mkdirSync(directory)
 }
 
+const { log } = console
+log('Hello tbieditor user! 👋')
+
 commander
   .version('1.0.0')
   .usage('[file...]')
@@ -21,9 +24,11 @@ commander
 const inputFilenames = commander.args
 inputFilenames.forEach((inputFilename) => {
   const input = readFileSync(inputFilename, 'utf8')
+  log(` 👀  Read '${inputFilename}'`)
   transpile(input, (outpulFilename, output) => {
     const path = join(process.cwd(), commander.outDir, outpulFilename)
     ensureDirectoryExists(path)
     writeFileSync(path, output)
+    log(` 👌  Outputted '${outpulFilename}'`)
   })
 })

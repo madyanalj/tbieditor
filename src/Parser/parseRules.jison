@@ -59,6 +59,8 @@ expression
     -> new Identifier($IDENTIFIER)
   | '(' expression ')'
     -> $expression
+  | FUNC '(' OPT_comma_separated_identifiers OPT_comma ')' BLOCK_START block BLOCK_END
+    -> new FunctionDeclaration($OPT_comma_separated_identifiers, $block)
 ;
 
 literal
@@ -72,20 +74,33 @@ literal
     -> new Literal(true)
   | FALSE
     -> new Literal(false)
-  | '[' OPT_array_elements OPT_comma ']'
-    -> new Literal($OPT_array_elements)
+  | '[' OPT_comma_separated_expressions OPT_comma ']'
+    -> new Literal($OPT_comma_separated_expressions)
 ;
 
-OPT_array_elements
+OPT_comma_separated_identifiers
   : // optional
     -> []
-  | array_elements
+  | comma_separated_identifiers
 ;
 
-array_elements
+comma_separated_identifiers
+  : IDENTIFIER
+    -> [$IDENTIFIER]
+  | OPT_comma_separated_identifiers ',' IDENTIFIER
+    { $$.push($IDENTIFIER) }
+;
+
+OPT_comma_separated_expressions
+  : // optional
+    -> []
+  | comma_separated_expressions
+;
+
+comma_separated_expressions
   : expression
     -> [$expression]
-  | OPT_array_elements ',' expression
+  | OPT_comma_separated_expressions ',' expression
     { $$.push($expression) }
 ;
 

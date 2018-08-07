@@ -7,7 +7,12 @@ import {
   NodeAddition,
   NodeSelection,
 } from '../Constructor'
-import { Identifier, Literal, NotOperation } from '../Constructor/Expression'
+import {
+  FunctionDeclaration,
+  Identifier,
+  Literal,
+  NotOperation,
+} from '../Constructor/Expression'
 import {
   AdditionOperation,
   AndOperation,
@@ -177,6 +182,37 @@ describe('parse', () => {
     const statement = block.statements[0]
     expect(statement).toBeInstanceOf(Identifier)
     expect((statement as Identifier).name).toBe('foo-bar')
+  })
+
+  it('should support function decleration', () => {
+    block = parse('func($foo) { 1 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(FunctionDeclaration)
+    const body = new Block([new Literal(1)])
+    expect(statement).toMatchObject(new FunctionDeclaration(['$foo'], body))
+  })
+
+  it('should support function decleration with multiple parameters', () => {
+    block = parse('func($foo, $bar) { 1 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(FunctionDeclaration)
+    const body = new Block([new Literal(1)])
+    expect(statement).toMatchObject(new FunctionDeclaration(['$foo', '$bar'], body))
+  })
+
+  it('should support function decleration with no parameters', () => {
+    block = parse('func() { 1 }')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(FunctionDeclaration)
+    const body = new Block([new Literal(1)])
+    expect(statement).toMatchObject(new FunctionDeclaration([], body))
+  })
+
+  it('should support function decleration with empty body', () => {
+    block = parse('func() {}')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(FunctionDeclaration)
+    expect(statement).toMatchObject(new FunctionDeclaration([], new Block([])))
   })
 
   it('should support assignment', () => {

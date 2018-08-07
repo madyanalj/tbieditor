@@ -16,7 +16,12 @@ export {
   NodeAddition,
   NodeSelection,
 } from '../Constructor'
-export { Identifier, Literal, NotOperation } from '../Constructor/Expression'
+export {
+  FunctionDeclaration,
+  Identifier,
+  Literal,
+  NotOperation,
+} from '../Constructor/Expression'
 export {
   AdditionOperation,
   AndOperation,

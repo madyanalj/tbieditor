@@ -89,6 +89,9 @@
 ('true'|'false')\b
   return yytext.toUpperCase()
 
+'func'\b
+  return yytext.toUpperCase()
+
 \d*('.'\d+)\b
   return 'NUMBER'
 

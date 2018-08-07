@@ -24,5 +24,10 @@ describe('NodeSelection', () => {
       nodeSelection.evaluate(store)
       expect(store.getSelectedNodeProperty('width')).toBe(250)
     })
+
+    it('should through ReferenceError when selecting non-existing node', () => {
+      nodeSelection = new NodeSelection('#foo')
+      expect(() => nodeSelection.evaluate(store)).toThrow(ReferenceError)
+    })
   })
 })

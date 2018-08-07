@@ -50,6 +50,16 @@ describe('Assignment', () => {
       expect(() => assignment.evaluate(store)).toThrow(TypeError)
     })
 
+    it('should support changing node type to text when content is set', () => {
+      store.addNode('#foo', new RectNode())
+      store.selectNode('#foo')
+      const assignment = new Assignment('content', new Literal('Hello'))
+      assignment.evaluate(store)
+      expect(store.getVariable('#foo')).toBeInstanceOf(TextNode)
+      expect(store.getVariable('#foo').properties)
+        .toHaveProperty('content', 'Hello')
+    })
+
     it('should through TypeError when assigning node variable', () => {
       const assignment = new Assignment('#foo', new Literal('bar'))
       expect(() => assignment.evaluate(store)).toThrow(TypeError)

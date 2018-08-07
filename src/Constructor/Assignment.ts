@@ -29,6 +29,9 @@ class Assignment extends Constructor {
       store.setVariable(this.identifier, evaluationResult)
     } else if (this.identifier === 'type') {
       store.replaceSelectedNode(this.makeNode(evaluationResult))
+    } else if (this.identifier === 'content') {
+      store.replaceSelectedNode(new TextNode())
+      store.setSelectedNodeProperty(this.identifier, evaluationResult)
     } else {
       store.setSelectedNodeProperty(this.identifier, evaluationResult)
     }

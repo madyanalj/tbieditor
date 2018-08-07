@@ -2,8 +2,12 @@
 
 import commander from 'commander'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
-import { dirname, join } from 'path'
+import { dirname, extname, join } from 'path'
+import sharp from 'sharp'
 import { transpile } from '../src/Transpiler'
+
+const { log } = console
+log('Hello tbieditor user! 👋')
 
 function ensureDirectoryExists(path: string): void {
   const directory = dirname(path)
@@ -12,8 +16,20 @@ function ensureDirectoryExists(path: string): void {
   mkdirSync(directory)
 }
 
-const { log } = console
-log('Hello tbieditor user! 👋')
+function logOutput(filename: string): void {
+  log(` 👌  Outputted '${filename}'`)
+}
+
+function outputImage(path: string, type: string, data: string): void {
+  if (type === 'png' || type === 'jpeg' || type === 'jpg') {
+    let process = sharp(Buffer.from(data))
+    process = type === 'png' ? process.png() : process.jpeg()
+    process.toFile(path, () => logOutput(path))
+  } else {
+    writeFileSync(path, data)
+    logOutput(path)
+  }
+}
 
 commander
   .version('1.0.0')
@@ -28,7 +44,7 @@ inputFilenames.forEach((inputFilename) => {
   transpile(input, (outpulFilename, output) => {
     const path = join(process.cwd(), commander.outDir, outpulFilename)
     ensureDirectoryExists(path)
-    writeFileSync(path, output)
-    log(` 👌  Outputted '${outpulFilename}'`)
+    const mediaType = extname(outpulFilename).slice(1)
+    outputImage(path, mediaType, output)
   })
 })

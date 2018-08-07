@@ -27,5 +27,10 @@ describe('NodeAddition', () => {
       assignment.evaluate(store)
       expect(store.rootNode.children[0].properties).toHaveProperty('width', 400)
     })
+
+    it('should through TypeError when given invalid identifier', () => {
+      nodeAddition = new NodeAddition('box')
+      expect(() => nodeAddition.evaluate(store)).toThrow(TypeError)
+    })
   })
 })

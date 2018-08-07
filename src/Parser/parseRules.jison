@@ -62,6 +62,8 @@ expression
 literal
   : NUMBER
     -> new Literal(processNumber($NUMBER))
+  | '-' NUMBER
+    -> new Literal(processNumber('-' + $NUMBER))
   | STRING
     -> new Literal(processString($STRING))
   | TRUE

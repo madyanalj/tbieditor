@@ -52,6 +52,13 @@ describe('parse', () => {
     expect((statement as Literal).value).toBe(3)
   })
 
+  it('should support negative number literal', () => {
+    block = parse('-3')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(Literal)
+    expect((statement as Literal).value).toBe(-3)
+  })
+
   it('should support number literal with decimal', () => {
     block = parse('3.50')
     const statement = block.statements[0]
@@ -296,6 +303,14 @@ describe('parse', () => {
     expect(statement).toBeInstanceOf(SubtractionOperation)
     expect(statement)
       .toMatchObject(new SubtractionOperation(new Literal(10), new Literal(5)))
+  })
+
+  it('should support subtraction operation with negative number', () => {
+    block = parse('-10 - -5')
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(SubtractionOperation)
+    expect(statement)
+      .toMatchObject(new SubtractionOperation(new Literal(-10), new Literal(-5)))
   })
 
   it('should support multiplication operation', () => {

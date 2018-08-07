@@ -49,5 +49,15 @@ describe('Assignment', () => {
       const assignment = new Assignment('type', new Literal('bar'))
       expect(() => assignment.evaluate(store)).toThrow(TypeError)
     })
+
+    it('should through TypeError when assigning node variable', () => {
+      const assignment = new Assignment('#foo', new Literal('bar'))
+      expect(() => assignment.evaluate(store)).toThrow(TypeError)
+    })
+
+    it('should through TypeError when assigning system variable', () => {
+      const assignment = new Assignment('_FOO', new Literal('bar'))
+      expect(() => assignment.evaluate(store)).toThrow(TypeError)
+    })
   })
 })

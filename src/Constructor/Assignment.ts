@@ -21,6 +21,9 @@ class Assignment extends Constructor {
   }
 
   public evaluate(store: Store): StateVariable {
+    if (this.identifier[0] === '#' || this.identifier[0] === '_') {
+      this.throwTypeError(this.identifier, 'assignable')
+    }
     const evaluationResult = this.expression.evaluate(store)
     if (this.identifier[0] === '$') {
       store.setVariable(this.identifier, evaluationResult)

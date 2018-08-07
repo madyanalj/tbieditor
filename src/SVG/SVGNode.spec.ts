@@ -2,7 +2,10 @@ import { RectNode, SVGNode } from './'
 
 describe('SVGNode', () => {
   let node: SVGNode
-  const attributes = [['xmlns', 'http://www.w3.org/2000/svg']]
+  const attributes = [
+    ['xmlns', 'http://www.w3.org/2000/svg'],
+    ['xmlns:xlink', 'http://www.w3.org/1999/xlink'],
+  ]
 
   beforeEach(() => {
     node = new SVGNode()
@@ -10,7 +13,7 @@ describe('SVGNode', () => {
 
   describe('#attributes', () => {
     it('should return array with correct length', () => {
-      expect(node.attributes).toHaveLength(2)
+      expect(node.attributes).toHaveLength(attributes.length + 1)
     })
 
     it.each(attributes)('should contain %s attribute', (name, value) => {
@@ -22,7 +25,7 @@ describe('SVGNode', () => {
     let output: string
 
     function svg(children = ''): string {
-      return `<svg xmlns="http://www.w3.org/2000/svg">${children}</svg>`
+      return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">${children}</svg>`
     }
 
     function rect(): string {

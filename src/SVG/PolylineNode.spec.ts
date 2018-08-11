@@ -1,8 +1,8 @@
-import { PathNode } from './'
+import { PolylineNode } from './'
 
-describe('PathNode', () => {
+describe('PolylineNode', () => {
   it('should return instance', () => {
-    const node = new PathNode()
-    expect(node).toBeInstanceOf(PathNode)
+    const node = new PolylineNode()
+    expect(node).toBeInstanceOf(PolylineNode)
   })
 })

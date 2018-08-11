@@ -1,9 +1,14 @@
+import { BaseNode } from '../../../SVG'
 import { StateVariable, Store } from '../../../Store'
 import { BinaryOperation } from './'
 
 class MemberOperation extends BinaryOperation {
   public evaluate(store: Store): StateVariable {
-    return this.left.evaluate(store)[this.right.evaluate(store)].evaluate(store)
+    const parent = this.left.evaluate(store)
+    const key = this.right.evaluate(store)
+    return parent instanceof BaseNode
+      ? parent.properties[key]
+      : parent[key].evaluate(store)
   }
 }
 

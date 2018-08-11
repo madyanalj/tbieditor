@@ -12,12 +12,16 @@ describe('ForLoop', () => {
     beforeEach(() => {
       store = new Store()
       store.setVariable('$count', 0)
-      loop = new ForLoop('$i', new Literal([1, 2, 3]), new Block([
-        new Assignment(
-          '$count',
-          new AdditionOperation(new Identifier('$count'), new Literal(5)),
-        ),
-      ]))
+      loop = new ForLoop(
+        '$i',
+        new Literal([new Literal(1), new Literal(2)]),
+        new Block([
+          new Assignment(
+            '$count',
+            new AdditionOperation(new Identifier('$count'), new Literal(5)),
+          ),
+        ],
+      ))
       result = loop.evaluate(store)
     })
 
@@ -26,11 +30,11 @@ describe('ForLoop', () => {
     })
 
     it('should run correct number of iterations', () => {
-      expect(store.getVariable('$count')).toBe(15)
+      expect(store.getVariable('$count')).toBe(10)
     })
 
     it('should set correct identifier value at the end', () => {
-      expect(store.getVariable('$i')).toBe(3)
+      expect(store.getVariable('$i')).toBe(2)
     })
   })
 })

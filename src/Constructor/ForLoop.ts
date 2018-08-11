@@ -14,7 +14,7 @@ class ForLoop extends Constructor {
   public evaluate(store: Store): StateVariable {
     const object = this.expression.evaluate(store)
     object.forEach((item: any) => {
-      store.setVariable(this.identifier, item)
+      store.setVariable(this.identifier, item.evaluate(store))
       this.body.evaluate(store)
     })
     return undefined

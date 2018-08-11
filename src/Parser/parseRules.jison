@@ -16,8 +16,18 @@ program
 ;
 
 block
-  : OPT_statements
+  : OPT_newlines OPT_statements
     -> new Block($OPT_statements)
+;
+
+OPT_newlines
+  : // optional
+  | newlines
+;
+
+newlines
+  : NEWLINE
+  | newlines NEWLINE
 ;
 
 OPT_statements
@@ -29,7 +39,7 @@ OPT_statements
 statements
   : statement
     -> [$statement]
-  | statements NEWLINE statement
+  | statements newlines statement
     { $$.push($statement) }
 ;
 

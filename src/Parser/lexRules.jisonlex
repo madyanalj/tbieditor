@@ -2,23 +2,32 @@
 
 %%
 
-'{'[\r\n]*
+'{'
   return 'BLOCK_START'
 
 [\r\n]*'}'
   return 'BLOCK_END'
 
-[\r\n]+
-  return 'NEWLINE'
+[\r\n]*<<EOF>>
+  return 'EOF'
 
-\s+
-  // skip non-newline whitespaces
+[\r\n]*'//'.*[^\r\n]?[\r\n]*<<EOF>>
+  return 'EOF'
+
+[\r\n]*'/*'[\s\S]*?'*/'[\r\n]*<<EOF>>
+  return 'EOF'
 
 '//'.*[^\r\n]?
   // skip single-line comments
 
 '/*'[\s\S]*?'*/'
   // skip multi-line comments
+
+[\r\n]+
+  return 'NEWLINE'
+
+\s+
+  // skip non-newline whitespaces
 
 '('
   return '('
@@ -103,6 +112,3 @@
 
 [$#\w][-\w]*
   return 'IDENTIFIER'
-
-<<EOF>>
-  return 'EOF'

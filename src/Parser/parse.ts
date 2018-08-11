@@ -31,7 +31,7 @@ function makeParser(filename: string): Parser {
 }
 
 function parse(input: string, filename: string = ''): Block {
-  return makeParser(filename).parse(input.trim())
+  return makeParser(filename).parse(input)
 }
 
 export { parse }

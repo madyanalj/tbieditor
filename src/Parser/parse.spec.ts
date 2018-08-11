@@ -594,9 +594,19 @@ describe('parse', () => {
     expect(block.statements[1]).toMatchObject(new Literal(2))
   })
 
+  it('should support single-line comments', () => {
+    block = parse('1// Hello\n')
+    expect(block.statements).toMatchObject([new Literal(1)])
+  })
+
   it('should support multi-line comments', () => {
     block = parse('1/* Hello\n World!*/\n2')
     expect(block.statements[0]).toMatchObject(new Literal(1))
     expect(block.statements[1]).toMatchObject(new Literal(2))
+  })
+
+  it('should support ending with multi-line comments then newline', () => {
+    block = parse('1/* Hello\n World!*/\n')
+    expect(block.statements).toMatchObject([new Literal(1)])
   })
 })

@@ -363,6 +363,15 @@ describe('parse', () => {
       .toMatchObject(new AdditionOperation(new Literal(10), new Literal(5)))
   })
 
+  it('should support string concatination', () => {
+    block = parse("'Hello' + ' World!'")
+    const statement = block.statements[0]
+    expect(statement).toBeInstanceOf(AdditionOperation)
+    expect(statement).toMatchObject(
+      new AdditionOperation(new Literal('Hello'), new Literal(' World!')),
+    )
+  })
+
   it('should support subtraction operation', () => {
     block = parse('10 - 5')
     const statement = block.statements[0]

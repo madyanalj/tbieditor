@@ -107,7 +107,7 @@
 \d+\b
   return 'NUMBER'
 
-"'".*"'"
+"'".*?[^\\]"'"
   return 'STRING'
 
 [$#\w][-\w]*

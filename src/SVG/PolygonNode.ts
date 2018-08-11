@@ -1,6 +1,14 @@
-import { PolylineNode } from './'
+import { BaseNode, Properties } from './'
 
-class PolygonNode extends PolylineNode {
+const defaultProperties = {
+  points: '',
+}
+
+class PolygonNode extends BaseNode {
+  public readonly properties: Properties = {
+    ...defaultProperties,
+  }
+  protected readonly defaultProperties = defaultProperties
   protected readonly TAG: string = 'polygon'
 }
 

@@ -49,5 +49,5 @@ inputFilenames.forEach((inputFilename) => {
     ensureDirectoryExists(outputPath)
     const mediaType = extname(outpulFilename).slice(1)
     outputImage(logPath, outputPath, mediaType, output)
-  })
+  }, inputFilename)
 })

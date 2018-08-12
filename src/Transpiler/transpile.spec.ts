@@ -13,4 +13,10 @@ describe('transpile', () => {
       expect(output).toBe(expected)
     })
   })
+
+  it('should support global __FILENAME variable', () => {
+    transpile('-> __FILENAME', (filename) => {
+      expect(filename).toBe('foo-bar.svg')
+    }, 'foo-bar.svg')
+  })
 })

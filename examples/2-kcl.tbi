@@ -1,0 +1,54 @@
+/*
+  Generates KCL's logo
+*/
+
+$left = 50
+$top = 50
+
+// function to create text node and set common styles
+$makeText = func ($content, $dx, $dy) {
+  +
+  content = $content
+  x = $left + $dx
+  y = $top + $dy
+  fill = 'white'
+  font-size = 100
+  font-family = 'Times, serif'
+}
+
+// function to create line node and set common styles
+$makeLine = func ($dy, $thickness) {
+  +
+  type = 'line'
+  stroke = 'white'
+  x1 = $left
+  y1 = $top + $dy
+  x2 = x1 + 430
+  y2 = y1
+  stroke-width = $thickness
+}
+
+// background
++
+fill = '#ec2721'
+width = 550
+height = 400
+
+$makeText('K', 0, 0)
+font-size = font-size * 2.2
+
+$makeText('ING’S', 155, 7)
+letter-spacing = 5
+
+$makeText('College', 150, 87)
+font-style = 'italic'
+letter-spacing = -4
+
+$makeText('LONDON', 0, 180)
+letter-spacing = 3
+
+// Bottom lines
+$makeLine(270, 4)
+$makeLine(285, 9)
+
+-> '2-kcl.svg'

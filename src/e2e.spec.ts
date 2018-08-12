@@ -3,6 +3,7 @@ import { transpile } from './Transpiler'
 
 const examples = [
   ['1-house.tbi', ['1-house.svg']],
+  ['2-kcl.tbi', ['2-kcl.svg']],
 ]
 
 const scripts: { [key: string]: string } = {}
@@ -15,11 +16,16 @@ examples.forEach(([name, outputFilenames]) => {
 })
 
 describe('e2e', () => {
-  it.each(examples)('should produce correct output for %s', (name, expectedNames) => {
+  describe.each(examples)('%s example', (name, expectedNames) => {
     let i = 0
     transpile(scripts[name], (filename, output) => {
-      expect(filename).toBe(expectedNames[i])
-      expect(output).toBe(scripts[expectedNames[i++]])
+      it(`should produce correct output filename of ${expectedNames[i]}`, () => {
+        expect(filename).toBe(expectedNames[i])
+      })
+
+      it(`should produce correct output for ${expectedNames[i]}`, () => {
+        expect(output).toBe(scripts[expectedNames[i++]])
+      })
     })
   })
 })

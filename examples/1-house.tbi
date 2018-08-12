@@ -1,0 +1,42 @@
+/*
+  Generates a house
+*/
+
+$w-house = 400
+$h-house = 500
+$w-roof = $w-house
+$h-roof = $h-house * .4
+$w-wall = $w-house * .8
+$h-wall = $h-house - $h-roof
+$w-door = $w-wall * .3
+$h-door = $h-wall * .6
+
+// roof
++
+type = 'polygon'
+fill = '#136b36'
+$left-coord = '0,' + $h-roof
+$middle-coord = $w-house / 2 + ',' + 0
+$right-coord = $w-house + ',' + $h-roof
+points = $left-coord + ' ' + $middle-coord + ' ' + $right-coord
+
+// wall top
++ #wall-top
+fill = '#42f489'
+width = $w-wall
+height = $h-wall - $h-door
+x = ($w-house - width) / 2
+y = $h-roof
+
+// walls left/right
+$w-wall-part = ($w-wall - $w-door) / 2
+for $x-offset in [0, $w-wall-part + $w-door] {
+  +
+  fill = #wall-top['fill']
+  x = #wall-top['x'] + $x-offset
+  y = $h-roof
+  width = $w-wall-part
+  height = $h-wall
+}
+
+-> '1-house.svg'

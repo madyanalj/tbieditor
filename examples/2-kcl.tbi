@@ -3,7 +3,7 @@
 */
 
 $left = 50
-$top = 50
+$top = 120
 
 // function to create text node and set common styles
 $makeText = func ($content, $dx, $dy) {
@@ -34,13 +34,13 @@ fill = '#ec2721'
 width = 550
 height = 400
 
-$makeText('K', 0, 0)
+$makeText('K', 0, 80)
 font-size = font-size * 2.2
 
-$makeText('ING’S', 155, 7)
+$makeText('ING’S', 155, 0)
 letter-spacing = 5
 
-$makeText('College', 150, 87)
+$makeText('College', 150, 80)
 font-style = 'italic'
 letter-spacing = -4
 
@@ -48,7 +48,7 @@ $makeText('LONDON', 0, 180)
 letter-spacing = 3
 
 // Bottom lines
-$makeLine(270, 4)
-$makeLine(285, 9)
+$makeLine(205, 4)
+$makeLine(220, 9)
 
 -> '2-kcl.svg'

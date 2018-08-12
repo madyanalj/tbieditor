@@ -28,7 +28,7 @@ ry = rx
 +
 content = 'Google'
 x = $w-browser / 2
-y = 10
+y = 20
 text-anchor = 'middle'
 
 // back/forward buttons
@@ -51,7 +51,7 @@ y = 35
 +
 content = 'https://www.google.com'
 x = #address-bar['x'] + $padding
-y = #address-bar['y'] + $padding
+y = #address-bar['y'] + $padding * 2
 
 // page background
 + #page-background
@@ -79,7 +79,7 @@ $center-x-in-browser()
 y = #google-logo['y'] + #google-logo['height'] + $padding
 + #search-bar-text
 x = #search-bar['x'] + $padding
-y = #search-bar['y'] + $padding * 1.5
+y = #search-bar['y'] + $padding * 2.5
 
 // form buttons
 $i = 0
@@ -94,7 +94,7 @@ for $content in ['Google Search', 'I\'m Feeling Lucky'] {
   content = $content
   fill = $c-grey
   x = #button['x'] + #button['width'] / 2
-  y = #button['y'] + 15
+  y = #button['y'] + 25
   text-anchor = 'middle'
   $i = $i + 1
 }

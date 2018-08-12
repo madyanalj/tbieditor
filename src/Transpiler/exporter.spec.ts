@@ -15,5 +15,6 @@ describe('exporter', () => {
       expect(emittedSVGNode).toBe(svgNode)
     })
     exporter.emitExport(filename, svgNode)
+    exporter.stop()
   })
 })

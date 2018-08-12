@@ -13,6 +13,10 @@ class Exporter extends EventEmitter {
   public emitExport(filename: string, svgNode: SVGNode): boolean {
     return super.emit('export', filename, svgNode)
   }
+
+  public stop(): this {
+    return super.removeAllListeners('export')
+  }
 }
 
 const exporter = Exporter.exporter

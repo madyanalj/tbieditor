@@ -11,6 +11,7 @@ function transpile(
   })
   const block = parse(input)
   block.evaluate(new Store())
+  exporter.stop()
 }
 
 export { transpile }

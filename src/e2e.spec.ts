@@ -4,6 +4,11 @@ import { transpile } from './Transpiler'
 const examples = [
   ['1-house.tbi', ['1-house.svg']],
   ['2-kcl.tbi', ['2-kcl.svg']],
+  ['3-web-browser.tbi', [
+    '3-web-browser-1.svg',
+    '3-web-browser-2.svg',
+    '3-web-browser-3.svg',
+  ]],
 ]
 
 const scripts: { [key: string]: string } = {}
@@ -17,15 +22,14 @@ examples.forEach(([name, outputFilenames]) => {
 
 describe('e2e', () => {
   describe.each(examples)('%s example', (name, expectedNames) => {
-    let i = 0
     transpile(scripts[name], (filename, output) => {
-      it(`should produce correct output filename of ${expectedNames[i]}`, () => {
-        expect(filename).toBe(expectedNames[i])
+      it('should produce correct output filename', () => {
+        expect(expectedNames).toContain(filename)
       })
 
-      it(`should produce correct output for ${expectedNames[i]}`, () => {
-        expect(output).toBe(scripts[expectedNames[i++]])
+      it(`should produce correct output content for ${filename}`, () => {
+        expect(output).toBe(scripts[filename])
       })
-    })
+    }, `examples/${name}`)
   })
 })

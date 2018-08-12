@@ -1,0 +1,109 @@
+/*
+  Generates three mockups of Google search engine inside a web browser
+*/
+
+$c-blue = '#4285f4'
+$c-light-grey = '#f2f2f2'
+$c-grey = '#757575'
+
+$w-browser = 700
+$h-browser = 500
+$padding = 10
+
+// center current element horizontally in browser
+$center-x-in-browser = func () {
+  x = ($w-browser - width) / 2
+}
+
+// browser frame
++
+fill = $c-grey
+stroke = 'black'
+width = $w-browser
+height = $h-browser
+rx = 10
+ry = rx
+
+// page title
++
+content = 'Google'
+x = $w-browser / 2
+y = 10
+text-anchor = 'middle'
+
+// back/forward buttons
+for $points in ['18,38 10,48 18,58', '38,38 46,48 38,58'] {
+  +
+  type = 'polyline'
+  points = $points
+  stroke = 'white'
+  stroke-width = 3
+}
+
+// address bar
++ #address-bar
+fill = 'white'
+stroke = 'black'
+width = 630
+height = $padding * 3
+x = $w-browser - width - $padding
+y = 35
++
+content = 'https://www.google.com'
+x = #address-bar['x'] + $padding
+y = #address-bar['y'] + $padding
+
+// page background
++ #page-background
+fill = 'white'
+stroke = 'black'
+width = $w-browser - 2 * $padding
+height = $h-browser - 85
+x = $padding
+y = $h-browser - height - x
+
+// Google logo
++ #google-logo
+href = 'assets/google-logo.png'
+width = 270
+$center-x-in-browser()
+y = 175
+
+// search bar
++ #search-bar
+fill = 'white'
+stroke = $c-grey
+width = #page-background['width'] * .7
+height = $padding * 4
+$center-x-in-browser()
+y = #google-logo['y'] + #google-logo['height'] + $padding
++ #search-bar-text
+x = #search-bar['x'] + $padding
+y = #search-bar['y'] + $padding * 1.5
+
+// form buttons
+$i = 0
+for $content in ['Google Search', 'I\'m Feeling Lucky'] {
+  + #button
+  fill = $c-light-grey
+  width = 140
+  height = 40
+  x = 200 + (width + $padding) * $i
+  y = #search-bar['y'] + #search-bar['height'] + $padding * 2
+  +
+  content = $content
+  fill = $c-grey
+  x = #button['x'] + #button['width'] / 2
+  y = #button['y'] + 15
+  text-anchor = 'middle'
+  $i = $i + 1
+}
+
+// outputs three images with different text inside search box
+$i = 1
+for $content in ['tbieditor', 'is', 'AWESOME!! :D'] {
+  > #search-bar-text
+  content = $content
+  -> '3-web-browser-' + $i + '.svg'
+  $i = $i + 1
+}

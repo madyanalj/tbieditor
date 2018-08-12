@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { extname } from 'path'
+import { dirname, extname, join } from 'path'
 import {
   CircleNode,
   EllipseNode,
@@ -37,7 +37,9 @@ class Assignment extends Constructor {
       store.setSelectedNodeProperty(this.identifier, evaluationResult)
     } else if (this.identifier === 'href') {
       store.replaceSelectedNode(new ImageNode())
-      const uri = this.getDataURI(evaluationResult)
+      const filename = store.getVariable('__FILENAME')
+      const path = dirname(typeof filename === 'undefined' ? '' : filename)
+      const uri = this.getDataURI(evaluationResult, path)
       store.setSelectedNodeProperty('xlink:href', uri)
     } else {
       store.setSelectedNodeProperty(this.identifier, evaluationResult)
@@ -64,10 +66,10 @@ class Assignment extends Constructor {
     return new nodeClass()
   }
 
-  private getDataURI(filename: string): string {
+  private getDataURI(filename: string, path: string): string {
     let extension = extname(filename).slice(1)
     if (extension === 'jpg') extension = 'jpeg'
-    const data = readFileSync(filename, 'base64')
+    const data = readFileSync(join(path, filename), 'base64')
     return `data:image/${extension};base64,${data}`
   }
 }

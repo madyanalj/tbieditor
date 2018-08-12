@@ -74,6 +74,18 @@ describe('Assignment', () => {
       expect(uri.indexOf('data:image/png;base64,')).toBe(0)
     })
 
+    it('should support changing node type to image when href is set and __FILENAME is present', () => {
+      store.setVariable('__FILENAME', 'hello/bar.tbi')
+      store.addNode('#foo', new RectNode())
+      store.selectNode('#foo')
+      const assignment = new Assignment('href', new Literal('bar.png'))
+      assignment.evaluate(store)
+      expect(store.getVariable('#foo')).toBeInstanceOf(ImageNode)
+      expect(readFileSync).toHaveBeenCalledWith('hello/bar.png', 'base64')
+      const uri = store.getVariable('#foo').properties['xlink:href']
+      expect(uri.indexOf('data:image/png;base64,')).toBe(0)
+    })
+
     it('should support changing node type to jpeg image when href is set', () => {
       store.addNode('#foo', new RectNode())
       store.selectNode('#foo')

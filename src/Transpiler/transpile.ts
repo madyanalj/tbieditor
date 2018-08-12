@@ -10,7 +10,7 @@ function transpile(
   exporter.onExport((filename, svgNode) => {
     callback(filename, svgNode.generate())
   })
-  const block = parse(input)
+  const block = parse(input, inputFilename)
   const store = new Store()
   store.setVariable('__FILENAME', inputFilename)
   block.evaluate(store)

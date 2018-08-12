@@ -20,14 +20,16 @@ function logOutput(filename: string): void {
   log(` 👌  Outputted '${filename}'`)
 }
 
-function outputImage(path: string, type: string, data: string): void {
+function outputImage(
+  logPath: string, outputPath: string, type: string, data: string,
+): void {
   if (type === 'png' || type === 'jpeg' || type === 'jpg') {
     let process = sharp(Buffer.from(data))
     process = type === 'png' ? process.png() : process.jpeg()
-    process.toFile(path, () => logOutput(path))
+    process.toFile(outputPath, () => logOutput(logPath))
   } else {
-    writeFileSync(path, data)
-    logOutput(path)
+    writeFileSync(outputPath, data)
+    logOutput(logPath)
   }
 }
 
@@ -42,9 +44,10 @@ inputFilenames.forEach((inputFilename) => {
   const input = readFileSync(inputFilename, 'utf8')
   log(` 👀  Read '${inputFilename}'`)
   transpile(input, (outpulFilename, output) => {
-    const path = join(process.cwd(), commander.outDir, outpulFilename)
-    ensureDirectoryExists(path)
+    const logPath = join(commander.outDir, outpulFilename)
+    const outputPath = join(process.cwd(), logPath)
+    ensureDirectoryExists(outputPath)
     const mediaType = extname(outpulFilename).slice(1)
-    outputImage(path, mediaType, output)
+    outputImage(logPath, outputPath, mediaType, output)
   })
 })

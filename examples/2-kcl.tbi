@@ -13,7 +13,7 @@ $makeText = func ($content, $dx, $dy) {
   y = $top + $dy
   fill = 'white'
   font-size = 100
-  font-family = 'Times, serif'
+  font-family = 'Times'
 }
 
 // function to create line node and set common styles
@@ -52,3 +52,4 @@ $makeLine(205, 4)
 $makeLine(220, 9)
 
 -> '2-kcl.svg'
+-> '2-kcl.png'

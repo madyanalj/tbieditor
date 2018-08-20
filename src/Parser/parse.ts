@@ -3,6 +3,11 @@ import { Parser } from 'jison'
 import { join } from 'path'
 import { Block, Constructor } from '../Constructor'
 
+/**
+ * Reads content of a file inside the current file directory.
+ * @param  name Filename.
+ * @return      File content.
+ */
 function readFile(name: string) {
   return readFileSync(join(__dirname, name), 'utf8')
 }
@@ -12,6 +17,11 @@ const lexRules = readFile('lexRules.jisonlex')
 const parseRules = readFile('parseRules.jison')
 const grammar = `%{ ${grammarHeader} %} %lex ${lexRules} /lex ${parseRules}`
 
+/**
+ * Creates an instance of the script file parser.
+ * @param  filename Filename of script file.
+ * @return          Parser instance.
+ */
 function makeParser(filename: string): Parser {
   const parser = new Parser(grammar)
   const { performAction } = parser
@@ -30,6 +40,12 @@ function makeParser(filename: string): Parser {
   return parser
 }
 
+/**
+ * Parses given script file content.
+ * @param  input    Input script file content.
+ * @param  filename Filename of script file.
+ * @return          AST produced.
+ */
 function parse(input: string, filename: string = ''): Block {
   return makeParser(filename).parse(input)
 }

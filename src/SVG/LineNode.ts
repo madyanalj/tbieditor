@@ -7,14 +7,28 @@ const defaultProperties = {
   y2: 0,
 }
 
+/**
+ * Data structure of line SVG node.
+ */
 class LineNode extends BaseNode {
+  /**
+   * Properties of SVG node.
+   */
   public readonly properties: Properties = {
     ...defaultProperties,
     y1: 100,
     y2: 100,
     stroke: 'black',
   }
+
+  /**
+   * Default properties for the current node tag type.
+   */
   protected readonly defaultProperties = defaultProperties
+
+  /**
+   * Tag of SVG node.
+   */
   protected readonly TAG = 'line'
 }
 

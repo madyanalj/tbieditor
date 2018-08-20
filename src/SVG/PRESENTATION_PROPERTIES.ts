@@ -1,5 +1,8 @@
 import { Properties } from './'
 
+/**
+ * Default values of common presentation properties of SVG elements.
+ */
 const PRESENTATION_PROPERTIES: Properties = {
   'fill': 'black',
   'stroke': 'none',

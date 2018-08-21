@@ -15,7 +15,14 @@ import { StateVariable, Store } from '../Store'
 import { Constructor } from './'
 import { Expression } from './Expression'
 
+/**
+ * Represents data structure of an assignment AST node.
+ */
 class Assignment extends Constructor {
+  /**
+   * @param identifier  Left identifier.
+   * @param expression  Right expression.
+   */
   constructor(
     public readonly identifier: string,
     public readonly expression: Expression,
@@ -23,6 +30,13 @@ class Assignment extends Constructor {
     super()
   }
 
+  /**
+   * Evaluates the AST node by first detecting the type of the left identifier
+   * then setting it in the store to the result of evaluating the right
+   * expression.
+   * @param  store Store instance.
+   * @return       Evaluation result.
+   */
   public evaluate(store: Store): StateVariable {
     if (this.identifier[0] === '#' || this.identifier[0] === '_') {
       this.throwTypeError(this.identifier, 'assignable')
@@ -47,6 +61,11 @@ class Assignment extends Constructor {
     return undefined
   }
 
+  /**
+   * Makes an SVG node of a specific type.
+   * @param  type SVG node type.
+   * @return      Created SVG node.
+   */
   private makeNode(type: string) {
     const nodeClasses: { [key: string]: any } = {
       circle: CircleNode,
@@ -66,6 +85,12 @@ class Assignment extends Constructor {
     return new nodeClass()
   }
 
+  /**
+   * Reads an image file and produces its base64 data URI.
+   * @param  filename Image filename.
+   * @param  path     Image file path.
+   * @return          Image data URI.
+   */
   private getDataURI(filename: string, path: string): string {
     let extension = extname(filename).slice(1)
     if (extension === 'jpg') extension = 'jpeg'

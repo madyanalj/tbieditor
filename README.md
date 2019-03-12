@@ -1,7 +1,7 @@
 # tbieditor
 *Text-based Image Editor*
 
-CLI tool that allows generation of images out of text based on script files. Inspired by Markdown and LaTeX.
+CLI tool that allows generation of images out of text script files. Inspired by Markdown and LaTeX.
 
 ## Installation
 Note: If you get permission errors as a result of running any of the commands below, try to run them again using `sudo` command.
